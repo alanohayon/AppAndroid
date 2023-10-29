@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "51017006279",
+    "project_id": "carplace-76342",
+    "storage_bucket": "carplace-76342.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:51017006279:android:b36e07f7448522dac412e2",
+        "android_client_info": {
+          "package_name": "com.example.CarPlace"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCSDcaEWuemSheC7X1IZhSpn-hLsK1RyoE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:51017006279:android:31958fe8e457bfa3c412e2",
+        "android_client_info": {
+          "package_name": "com.example.carplace"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCSDcaEWuemSheC7X1IZhSpn-hLsK1RyoE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
