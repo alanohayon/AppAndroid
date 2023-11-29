@@ -1,6 +1,159 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".User">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- "Vos informations..." -->
+    <TextView
+        android:id="@+id/title_information"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Vos informations..."
+        android:textSize="18sp"
+        android:layout_below="@+id/title_carplace"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"/>
+
+    <!-- Adresse e-mail du user -->
+    <TextView
+        android:id="@+id/email_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Adresse e-mail du user"
+        android:layout_below="@+id/title_information"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"/>
+
+    <!-- Bouton Modifier Adresse e-mail -->
+    <Button
+        android:id="@+id/btnEditEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Modifier"
+        android:layout_below="@+id/email_detail"
+        android:layout_marginTop="8dp"/>
+
+    <!-- Prénom -->
+    <TextView
+        android:id="@+id/firstNameLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Prénom :"
+        android:layout_below="@+id/btnEditEmail"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"/>
+
+    <TextView
+        android:id="@+id/firstNameDetail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Prénom du user"
+        android:layout_below="@+id/firstNameLabel"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="8dp"/>
+
+    <!-- Bouton Modifier Prénom -->
+    <Button
+        android:id="@+id/btnEditFirstName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Modifier"
+        android:layout_below="@+id/firstNameDetail"
+        android:layout_marginTop="8dp"/>
+
+    <!-- Nom -->
+    <TextView
+        android:id="@+id/lastNameLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nom :"
+        android:layout_below="@+id/firstNameDetail"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"/>
+
+    <TextView
+        android:id="@+id/lastNameDetail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nom du user"
+        android:layout_below="@+id/lastNameLabel"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="8dp"/>
+
+    <!-- Bouton Modifier Nom -->
+    <Button
+        android:id="@+id/btnEditLastName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Modifier"
+        android:layout_below="@+id/lastNameDetail"
+        android:layout_marginTop="8dp"/>
+
+    <!-- Mail -->
+    <TextView
+        android:id="@+id/mailLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Mail :"
+        android:layout_below="@+id/btnEditLastName"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"/>
+
+    <TextView
+        android:id="@+id/mailDetail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Mail du user"
+        android:layout_below="@+id/mailLabel"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="8dp"/>
+
+    <!-- Bouton Modifier Mail -->
+    <Button
+        android:id="@+id/btnEditMail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Modifier"
+        android:layout_below="@+id/mailDetail"
+        android:layout_marginTop="8dp"/>
+
+    <!-- Mot de passe -->
+    <TextView
+        android:id="@+id/passwordLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Mot de passe :"
+        android:layout_below="@+id/btnEditMail"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"/>
+
+    <TextView
+        android:id="@+id/passwordDetail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Mot de passe du user"
+        android:layout_below="@+id/passwordLabel"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="8dp"/>
+
+    <!-- Bouton Modifier Mot de passe -->
+    <Button
+        android:id="@+id/btnEditPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Modifier"
+        android:layout_below="@+id/passwordDetail"
+        android:layout_marginTop="8dp"/>
+
+    <!-- Menu en bas de la page -->
+    <include layout="@layout/footer_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="40dp"/>
+
+</RelativeLayout>

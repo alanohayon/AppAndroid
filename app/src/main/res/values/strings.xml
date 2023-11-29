@@ -47,4 +47,8 @@
     <string name="btn_deconnexion">Deconnexion</string>
     <string name="click_to_register">click to register</string>
 
+    <!--    Navbar-->
+
+    <string name="Navbar">Bottom Navigation</string>
+
 </resources>

@@ -1,4 +1,4 @@
-package com.example.CarPlace
+package com.example.carplace
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

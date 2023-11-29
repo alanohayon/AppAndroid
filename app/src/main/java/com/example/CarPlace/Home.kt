@@ -1,4 +1,4 @@
-package com.example.CarPlace
+package com.example.carplace
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -44,6 +44,14 @@ class Home : AppCompatActivity() {
             val intent = Intent(applicationContext, Login::class.java)
             startActivity(intent)
             finish()
+        }
+
+        val btnGestionUser = findViewById<Button>(R.id.btnGestionUser)
+
+        btnGestionUser.setOnClickListener {
+            // Rediriger vers la page de gestion de l'utilisateur (ajustez la classe de l'activité selon votre structure)
+            val intent = Intent(applicationContext, User::class.java)
+            startActivity(intent)
         }
 
     }

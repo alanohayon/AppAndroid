@@ -1,6 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent">
+<!-- footer_layout.xml -->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="bottom|center">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <!-- Icône 1 -->
+    <ImageView
+        android:id="@+id/icon1"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/icon1"
+        android:clickable="true"/>
+
+    <!-- Espace entre les icônes -->
+    <Space
+        android:layout_width="25dp"
+        android:layout_height="3dp" />
+
+    <!-- Icône 2 -->
+    <ImageView
+        android:id="@+id/icon2"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/icon2"
+        android:clickable="true"/>
+
+    <!-- Espace entre les icônes -->
+    <Space
+        android:layout_width="25dp"
+        android:layout_height="3dp" />
+
+    <!-- Icône 3 -->
+    <ImageView
+        android:id="@+id/icon3"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/icon3"
+        android:clickable="true"/>
+</LinearLayout>

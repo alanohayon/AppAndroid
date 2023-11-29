@@ -1,4 +1,4 @@
-package com.example.CarPlace
+package com.example.carplace
 
 import android.os.Bundle
 import android.util.Log

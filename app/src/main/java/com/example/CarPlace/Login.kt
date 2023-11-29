@@ -1,4 +1,4 @@
-package com.example.CarPlace
+package com.example.carplace
 
 import android.content.ContentValues.TAG
 import android.content.Intent

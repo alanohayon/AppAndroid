@@ -14,58 +14,38 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Material3.DynamicColors.Light"
         tools:targetApi="31">
-        <activity
-            android:name="com.example.CarPlace.Home"
-            android:exported="true">
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
 
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
-        </activity>
         <activity
-            android:name="com.example.CarPlace.MainActivity"
+            android:name="com.example.carplace.Home"
+            android:exported="true">
+        </activity>
+
+        <activity
+            android:name="com.example.carplace.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
-            android:name="com.example.CarPlace.Register"
+            android:name="com.example.carplace.Register"
             android:exported="true"
             android:theme="@style/Theme.Material3.DynamicColors.Light">
-
-<!--             <intent-filter>-->
-<!--             <action android:name="android.intent.action.MAIN" />-->
-
-
-<!--             <category android:name="android.intent.category.LAUNCHER" />-->
-<!--             </intent-filter>-->
         </activity>
+
         <activity
-            android:name="com.example.CarPlace.Login"
+            android:name="com.example.carplace.Login"
             android:exported="true">
-
-<!--             <intent-filter>-->
-<!--             <action android:name="android.intent.action.MAIN" />-->
-
-
-<!--             <category android:name="android.intent.category.LAUNCHER" />-->
-<!--             </intent-filter>-->
         </activity>
-<!--        <activity-->
-<!--            android:name="com.example.CarPlace.ConnectFireBase"-->
-<!--            android:exported="true">-->
 
-<!--&lt;!&ndash;             <intent-filter>&ndash;&gt;-->
-<!--&lt;!&ndash;             <action android:name="android.intent.action.MAIN" />&ndash;&gt;-->
+        <!-- Ajout User -->
+        <activity
+            android:name="com.example.carplace.User"
+            android:exported="true">
+        </activity>
 
-
-<!--&lt;!&ndash;             <category android:name="android.intent.category.LAUNCHER" />&ndash;&gt;-->
-<!--&lt;!&ndash;             </intent-filter>&ndash;&gt;-->
-<!--        </activity>-->
     </application>
 
 </manifest>
