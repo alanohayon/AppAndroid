@@ -1,18 +1,32 @@
 {
   "project_info": {
     "project_number": "51017006279",
+    "firebase_url": "https://carplace-76342-default-rtdb.europe-west1.firebasedatabase.app",
     "project_id": "carplace-76342",
     "storage_bucket": "carplace-76342.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:51017006279:android:b36e07f7448522dac412e2",
+        "mobilesdk_app_id": "1:51017006279:android:d10f9aee1edb1158c412e2",
         "android_client_info": {
           "package_name": "com.example.CarPlace"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "51017006279-d1ket3g8h88ggjijnol33a0uutk5uohj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.CarPlace",
+            "certificate_hash": "6d538f9941d8361025ab2789ed8e8b0e30d4c2c7"
+          }
+        },
+        {
+          "client_id": "51017006279-jc1f17kn3ml8bukslmm6gts6lr6lvs2u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyCSDcaEWuemSheC7X1IZhSpn-hLsK1RyoE"
@@ -20,26 +34,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:51017006279:android:31958fe8e457bfa3c412e2",
-        "android_client_info": {
-          "package_name": "com.example.carplace"
-        }
-      },
-      "oauth_client": [],
-      "api_key": [
-        {
-          "current_key": "AIzaSyCSDcaEWuemSheC7X1IZhSpn-hLsK1RyoE"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "51017006279-jc1f17kn3ml8bukslmm6gts6lr6lvs2u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

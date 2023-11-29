@@ -6,19 +6,28 @@ import android.util.Log
 import android.widget.Button
 import android.widget.Toast
 import android.content.Intent
-import com.example.carplace.R
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
+import com.google.firebase.database.database
 
 class MainActivity : AppCompatActivity() {
 
+    // Connexion à l'authent de firebase
     private lateinit var auth: FirebaseAuth
+
+    //  Connexion à databse realtime
+    private val database = Firebase.database
+
+    //  Connexion ou creation à la table
+    private val myRef = database.getReference("data")
+
 
     //avant meme d'afficher la page
     override fun onStart() {
         super.onStart()
 
+        myRef.ref.child("car")
         auth = Firebase.auth
 
         //on recupere le user qui courrent (comme qd on verifier que la variable session existe)

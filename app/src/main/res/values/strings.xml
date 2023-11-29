@@ -6,7 +6,7 @@
     <string name="emailHolder">email</string>
 
     <!--mdp-->
-    <string name="mdpView">Mot de passe :</string>
+    <string name="mdpView">Mot de passe : (6 caractere minimum)</string>
     <string name="mdpHolder">mot de passe</string>
 
     <!--mdp-->
@@ -46,5 +46,9 @@
 
     <string name="btn_deconnexion">Deconnexion</string>
     <string name="click_to_register">click to register</string>
+
+    <string name="web_client_id">51017006279-jc1f17kn3ml8bukslmm6gts6lr6lvs2u.apps.googleusercontent.com</string>
+    <string name="connexionGoogle">Connexion</string>
+    <string name="felecitation">Félécitation !!</string>
 
 </resources>
