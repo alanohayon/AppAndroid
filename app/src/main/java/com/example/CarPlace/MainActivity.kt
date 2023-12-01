@@ -22,18 +22,20 @@ class MainActivity : AppCompatActivity() {
     //  Connexion à databse realtime
     private val database = Firebase.database
 
-    //  Connexion ou creation à la table
+    //  Connexion ou creation de la "BDD"
     private val myRef = database.getReference("BDD-CarPlace")
 
 
-    //  Avant meme d'afficher la page
+    //  Avant même d'afficher la page
     override fun onStart() {
         super.onStart()
 
+        // "table" Car (ce n'est pas vraiment une table en postgresql)
         myRef.ref.child("Car")
-        auth = Firebase.auth
 
-        //  On recupere le user courrent (comme qd on verifier que la variable session existe)
+        // Connexion à l'authent de firebase
+        auth = Firebase.auth
+        //  On recupere le user courant (comme qd on verifier que la variable session existe)
         val currentUser = auth.currentUser
 
         //si le user connecté alors le ramener vers la page home
@@ -60,9 +62,12 @@ class MainActivity : AppCompatActivity() {
         val btnGoSignIn = binding.btnGoSignIn
         val btnGoSignUp = binding.btnGoSignUp
 
+        // afficher du text dans un textview
+        binding.displayName.text = "Karl"
+
         //  Click sur connexion
         btnGoSignIn.setOnClickListener {
-            //redirection à la page connexion
+            //  Redirection à la page connexion
             val intent = Intent(applicationContext, Login::class.java)
             startActivity(intent)
             finish()

@@ -5,11 +5,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ProgressBar
-import android.widget.TextView
 import android.widget.Toast
+import com.example.CarPlace.databinding.ActivityRegisterBinding
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
@@ -17,9 +14,13 @@ import com.google.firebase.auth.auth
 
 class Register : AppCompatActivity() {
 
+    //  Variable binding qui permet de recuperer les ref de la page activity_main.xml
+    private lateinit var binding: ActivityRegisterBinding
+
+    //  Connexion à l'authent de firebase
     private lateinit var auth: FirebaseAuth
 
-    //avant meme d'afficher la page
+    //  Avant meme d'afficher la page
     override fun onStart() {
         super.onStart()
 
@@ -37,20 +38,21 @@ class Register : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_register)
 
-        val progression = findViewById(R.id.progressBar) as ProgressBar
-        val inputNom = findViewById(R.id.inputNom) as EditText
-        val inputPren = findViewById(R.id.inputPren) as EditText
-        val inputEmail = findViewById(R.id.inputEmailUp) as EditText
-        val inputMdp = findViewById(R.id.inputMdpUp) as EditText
-        val inputMdpConf = findViewById(R.id.inputConfMdp) as EditText
-        val inputDate = findViewById(R.id.inputDate) as EditText
-        val btnRegister = findViewById(R.id.btnSignUp) as Button
-        val loginNow = findViewById(R.id.registerNow) as TextView
+        binding = ActivityRegisterBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
+        val progression = binding.progressBar
+        val inputNom = binding.inputNom
+        val inputPren = binding.inputPren
+        val inputEmail = binding.inputEmailUp
+        val inputMdp = binding.inputMdpUp
+        val inputMdpConf = binding.inputConfMdp
+        val inputDate = binding.inputDate
+        val btnRegister = binding.btnSignUp
+        val loginNow = binding.registerNow
 
-        //click sur le lien login
+        //  Click sur le lien login
         loginNow.setOnClickListener {
             val intent = Intent(applicationContext, Login::class.java)
             startActivity(intent)
@@ -72,30 +74,31 @@ class Register : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            //ajout d'un nouveau user si il n'existe pas dans firebase
+            //  Ajout d'un nouveau user si il n'éxiste pas dans firebase
             auth.createUserWithEmailAndPassword(email, mdp)
                 .addOnCompleteListener() { task ->
                     progression.visibility = View.GONE
-                    //success, connexion reussie afficher log/message
+                    //  success, connexion reussie afficher log/message
                     if (task.isSuccessful) {
                         Log.d("SUCCESS", "createUserWithEmail:success")
 
                         Toast.makeText(
-                            Register@this,
+                            this@Register,
                             "Compte crée 👌.",
                             Toast.LENGTH_SHORT,
                         ).show()
 
+                        Login::class.java
                         val intent = Intent(applicationContext, Login::class.java)
                         startActivity(intent)
                         finish()
 
                     } else {
-                        //echec, afficher log/message
+                        //  echec, afficher log/message
                         Log.w("ECHEC", "createUserWithEmail:failure", task.exception)
 
                         Toast.makeText(
-                            Register@this,
+                            this@Register,
                             "Echec de la creation 😕.",
                             Toast.LENGTH_SHORT,
                         ).show()
@@ -105,7 +108,7 @@ class Register : AppCompatActivity() {
 
         }
 
-        //aller sur la page connexion
+        //  Aller sur la page connexion
         loginNow.setOnClickListener {
             val intent = Intent(applicationContext, Login::class.java)
             startActivity(intent)

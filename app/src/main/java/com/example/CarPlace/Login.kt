@@ -1,16 +1,12 @@
 package com.example.CarPlace
 
 import android.content.ContentValues.TAG
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.content.Intent
 import com.example.CarPlace.databinding.ActivityLoginBinding
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ProgressBar
-import android.widget.TextView
 import android.widget.Toast
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
@@ -18,7 +14,7 @@ import com.google.firebase.auth.auth
 
 class Login : AppCompatActivity() {
 
-    //  Variable binding qui permet de recuperer les ref de la page activity_main.xml
+    //  Variable binding qui permet de recuperer les ref de la page login_main.xml
     private lateinit var binding: ActivityLoginBinding
 
     private lateinit var auth: FirebaseAuth
@@ -27,10 +23,12 @@ class Login : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
 
+        // Connexion à l'authent de firebase
         auth = Firebase.auth
+        //  On recupere le user courant (comme qd on verifier que la variable session existe)
         val currentUser = auth.currentUser
 
-        //si le user connecté alors le ramener vers la page home
+        //  Si le user connecté alors le ramener vers la page home
         if (currentUser != null) {
             val intent = Intent(applicationContext, Home::class.java)
             startActivity(intent)
@@ -59,7 +57,7 @@ class Login : AppCompatActivity() {
             val email = inputEmail.text.toString()
             val password = inputMdp.text.toString()
 
-            //  Cherche via les info du user si il existe bien dans firebase
+            //  Cherche via les infos du user si il existe bien dans firebase
             auth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this) { task ->
                     progression.visibility = View.GONE

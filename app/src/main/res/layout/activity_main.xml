@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+
     <Button
         android:id="@+id/btnGoSignIn"
         android:layout_width="wrap_content"
@@ -22,6 +23,20 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="348dp"
         android:text="@string/sinscrireBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/displayName"
+        android:layout_width="0dp"
+        android:layout_height="19dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="108dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="35dp"
+        android:text="@{user.firsName}"
+        app:layout_constraintBottom_toTopOf="@+id/btnGoSignIn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
