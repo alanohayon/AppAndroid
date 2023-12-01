@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import com.example.CarPlace.databinding.ActivityLoginBinding
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ProgressBar
@@ -17,9 +18,12 @@ import com.google.firebase.auth.auth
 
 class Login : AppCompatActivity() {
 
+    //  Variable binding qui permet de recuperer les ref de la page activity_main.xml
+    private lateinit var binding: ActivityLoginBinding
+
     private lateinit var auth: FirebaseAuth
 
-    //avant meme d'afficher la page
+    //  Avant d'afficher la page
     override fun onStart() {
         super.onStart()
 
@@ -37,13 +41,16 @@ class Login : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
 
-        val progression = findViewById(R.id.progressBar) as ProgressBar
-        val inputEmail = findViewById(R.id.inputEmail) as EditText
-        val inputMdp = findViewById(R.id.inputMdp) as EditText
-        val btnLogin = findViewById(R.id.btnSignIn) as Button
-        val registerNow = findViewById(R.id.registerNow) as TextView
+        // Initialisez le binding
+        binding = ActivityLoginBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        val progression = binding.progressBar
+        val inputEmail = binding.inputEmail
+        val inputMdp = binding.inputMdp
+        val btnLogin = binding.btnSignIn
+        val registerNow = binding.registerNow
 
 
         btnLogin.setOnClickListener {
@@ -52,12 +59,12 @@ class Login : AppCompatActivity() {
             val email = inputEmail.text.toString()
             val password = inputMdp.text.toString()
 
-            //cherche via les info du user si il existe bien dans firebase
+            //  Cherche via les info du user si il existe bien dans firebase
             auth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this) { task ->
                     progression.visibility = View.GONE
 
-                    //si il existe alors le ramener vers la page home
+                    //  Si il existe alors le ramener vers la page home
                     if (task.isSuccessful) {
                         Log.d("SUCCES", "Connexion:success")
                         Toast.makeText(
@@ -71,16 +78,14 @@ class Login : AppCompatActivity() {
 
                     } else {
                         // Si il n'existe aps alors lui envoyé une notif
-                        Log.w("ECHEC", "Connexion:echec", task.exception)
+                        Log.w("ECHEC", "Echec Connexion FireBase: echec", task.exception)
                         Toast.makeText(
                             baseContext,
-                            "Echec de l'authentificaiton.",
+                            "Mail ou mot de passe incorrect",
                             Toast.LENGTH_SHORT,
                         ).show()
                     }
                 }
-
-
         }
 
         //aller sur la page inscription

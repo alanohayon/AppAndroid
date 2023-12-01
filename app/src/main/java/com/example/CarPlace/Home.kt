@@ -29,7 +29,7 @@ class Home : AppCompatActivity() {
         //verifier si il y a un user connecté recement
         val user = auth.currentUser
 
-        val btnLogout = findViewById(R.id.logout) as Button
+        val btnLogout = binding.btnLogout
 //        val userDetail = findViewById(R.id.user_detail) as TextView
 
         //si le user est nul, donc pas connecter le ramener vers la page login
