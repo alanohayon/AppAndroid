@@ -86,7 +86,7 @@ class Login : AppCompatActivity() {
                 }
         }
 
-        //aller sur la page inscription
+        //  Aller sur la page inscription
         registerNow.setOnClickListener {
             val intent = Intent(applicationContext, Register::class.java)
             startActivity(intent)
