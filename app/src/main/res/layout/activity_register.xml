@@ -4,80 +4,58 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/black"
     tools:context="com.example.CarPlace.Register">
-
-
-    <TextView
-        android:id="@+id/viewNom"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
-        android:layout_marginTop="170dp"
-        android:text="@string/nomView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
 
     <TextView
         android:id="@+id/viewPren"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
-        android:layout_marginTop="10dp"
         android:text="@string/prenomView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/inputNom" />
+        android:textColor="@color/white"
+        tools:layout_editor_absoluteX="36dp"
+        tools:layout_editor_absoluteY="160dp" />
 
     <TextView
         android:id="@+id/viewEmailUp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
-        android:layout_marginTop="10dp"
         android:text="@string/emailView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/inputPren" />
+        android:textColor="@color/white"
+        tools:layout_editor_absoluteX="36dp"
+        tools:layout_editor_absoluteY="229dp" />
 
     <TextView
         android:id="@+id/viewMdpUp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
-        android:layout_marginTop="10dp"
         android:text="@string/mdpView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/inputEmailUp" />
-
-    <TextView
-        android:id="@+id/viewConfMdp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
-        android:layout_marginTop="10dp"
-        android:text="@string/mdpConfView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/inputMdpUp" />
+        android:textColor="@color/white"
+        tools:layout_editor_absoluteX="245dp"
+        tools:layout_editor_absoluteY="229dp" />
 
     <TextView
         android:id="@+id/dateN"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
-        android:layout_marginTop="10dp"
         android:text="@string/dateNaissanceView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/inputConfMdp" />
+        android:textColor="@color/white"
+        tools:layout_editor_absoluteX="244dp"
+        tools:layout_editor_absoluteY="292dp" />
 
     <TextView
         android:id="@+id/viewSignUp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="85dp"
+        android:layout_marginTop="84dp"
         android:fontFamily="monospace"
         android:text="@string/inscriptioneView"
+        android:textColor="@color/white"
         android:textSize="24sp"
         android:typeface="normal"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.142"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -85,7 +63,7 @@
         android:id="@+id/inputNom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
+        android:layout_marginStart="244dp"
         android:layout_marginTop="2dp"
         android:autofillHints="lastname"
         android:ems="10"
@@ -94,15 +72,27 @@
         android:inputType="text"
         android:selectAllOnFocus="true"
         android:singleLine="true"
+        android:textColor="@color/white"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/viewNom" />
 
-    <EditText
-        android:id="@+id/inputPren"
+    <TextView
+        android:id="@+id/viewNom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
+        android:layout_marginStart="244dp"
+        android:layout_marginTop="160dp"
+        android:text="@string/nomView"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/inputPren"
+        android:layout_width="170dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="36dp"
         android:layout_marginTop="2dp"
         android:autofillHints="name"
         android:ems="10"
@@ -111,16 +101,15 @@
         android:inputType="text"
         android:selectAllOnFocus="true"
         android:singleLine="true"
+        android:textColor="@color/white"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/viewPren" />
 
     <EditText
         android:id="@+id/inputEmailUp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
-        android:layout_marginTop="2dp"
+        android:layout_width="168dp"
+        android:layout_height="38dp"
         android:autofillHints="emailAddress"
         android:ems="10"
         android:fontFamily="sans-serif"
@@ -128,16 +117,15 @@
         android:inputType="textEmailAddress"
         android:selectAllOnFocus="true"
         android:singleLine="true"
+        android:textColor="@color/white"
         android:textSize="12sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/viewEmailUp" />
+        tools:layout_editor_absoluteX="36dp"
+        tools:layout_editor_absoluteY="247dp" />
 
     <EditText
         android:id="@+id/inputMdpUp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
-        android:layout_marginTop="2dp"
         android:autofillHints="password"
         android:ems="10"
         android:fontFamily="sans-serif"
@@ -145,16 +133,15 @@
         android:inputType="textPassword"
         android:selectAllOnFocus="true"
         android:singleLine="true"
+        android:textColor="@color/white"
         android:textSize="12sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/viewMdpUp" />
+        tools:layout_editor_absoluteX="245dp"
+        tools:layout_editor_absoluteY="247dp" />
 
     <EditText
         android:id="@+id/inputConfMdp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
-        android:layout_marginTop="2dp"
         android:autofillHints="password"
         android:ems="10"
         android:fontFamily="sans-serif"
@@ -162,16 +149,24 @@
         android:inputType="textPassword"
         android:selectAllOnFocus="true"
         android:singleLine="true"
+        android:textColor="@color/white"
         android:textSize="12sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/viewConfMdp" />
+        tools:layout_editor_absoluteX="36dp"
+        tools:layout_editor_absoluteY="313dp" />
+
+    <TextView
+        android:id="@+id/viewConfMdp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/mdpConfView"
+        android:textColor="@color/white"
+        tools:layout_editor_absoluteX="36dp"
+        tools:layout_editor_absoluteY="292dp" />
 
     <EditText
         android:id="@+id/inputDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
-        android:layout_marginTop="2dp"
         android:autofillHints="date"
         android:ems="10"
         android:fontFamily="sans-serif"
@@ -179,37 +174,52 @@
         android:inputType="number|numberSigned"
         android:selectAllOnFocus="true"
         android:singleLine="false"
+        android:textColor="@color/white"
         android:textSize="12sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dateN" />
+        tools:layout_editor_absoluteX="244dp"
+        tools:layout_editor_absoluteY="313dp" />
 
-    <Button
-        android:id="@+id/btnSignUp"
-        android:layout_width="107dp"
+    <LinearLayout
+        android:id="@+id/buttonContainer"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="35dp"
-        android:text="@string/sinscrireBtn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/inputDate" />
+        android:orientation="horizontal"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="471dp">
+
+        <!-- Bouton S'inscrire -->
+
+        <!-- Bouton Se connecter -->
+    </LinearLayout>
 
     <ProgressBar
         android:id="@+id/progressBar"
+        android:layout_width="54dp"
+        android:layout_height="54dp"
         android:visibility="gone"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         tools:ignore="MissingConstraints" />
 
-    <TextView
-        android:id="@+id/registerNow"
-        android:onClick="onClick"
-        android:clickable="true"
-        android:layout_width="wrap_content"
+    <Button
+        android:id="@+id/btnGoSignIn"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:text="@string/click_to_login"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnSignUp" />
+        android:layout_weight="1"
+        android:backgroundTint="#FFA500"
+        android:text="@string/seConnecterBtn"
+        android:textColor="@color/white"
+        tools:layout_editor_absoluteX="272dp"
+        tools:layout_editor_absoluteY="561dp" />
+
+    <Button
+        android:id="@+id/btnSignUp"
+        android:layout_width="246dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:backgroundTint="#FFA500"
+        android:text="@string/sinscrireBtn"
+        android:textColor="@color/white"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="561dp" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
