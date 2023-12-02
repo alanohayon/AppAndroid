@@ -1,5 +1,11 @@
 <resources>
     <string name="app_name">CarPlace</string>
+    <string name="titre_debut">Bienvenue !</string>
+    <string name="description_debut">
+        Carplace va être votre outil indispensable
+        dans votre recherche de place de parking
+    </string>
+
 
     <!--mail-->
     <string name="emailView">Email :</string>
