@@ -1,0 +1,60 @@
+<resources>
+    <string name="app_name">CarPlace</string>
+    <string name="titre_debut">Bienvenue !</string>
+    <string name="description_debut">
+        Carplace va être votre outil indispensable
+        dans votre recherche de place de parking
+    </string>
+
+
+    <!--mail-->
+    <string name="emailView">Email :</string>
+    <string name="emailHolder">email</string>
+
+    <!--mdp-->
+    <string name="mdpView">Mot de passe :</string>
+    <string name="mdpHolder">mot de passe</string>
+
+    <!--mdp-->
+    <string name="mdpConfView">Confirmation mot de passe :</string>
+
+    <!--connexion-->
+    <string name="connexionView">Connexion</string>
+    <string name="seConnecterBtn">Se connecter</string>
+
+    <!--inscription-->
+    <string name="inscriptioneView">Inscription</string>
+    <string name="sinscrireBtn">S\'inscrire</string>
+
+    <!--nom-->
+    <string name="nomView">Nom :</string>
+    <string name="nomHolder">nom</string>
+
+    <!--prenom-->
+    <string name="prenomView">Prénom :</string>
+    <string name="prenomHolder">prénom</string>
+
+    <!--    phone-->
+    <string name="phoneView">Téléphone :</string>
+    <string name="phoneHolder">06</string>
+
+    <!--    dateNaissance-->
+    <string name="dateNaissanceView">Date de naissance :</string>
+    <string name="dateNaissanceHolder">jj/mm/aaaa</string>
+
+    <!--    Connexion avec facebook-->
+    <string name="facebook_application_id" translatable="false">YOUR_APP_ID</string>
+    <string name="facebook_login_protocol_scheme" translatable="false">fbYOUR_APP_ID</string>
+
+    <!--    progressBar-->
+    <string name="progressBar">Connexion en cours...</string>
+    <string name="click_to_login">Click to login</string>
+
+    <string name="btn_deconnexion">Deconnexion</string>
+    <string name="click_to_register">click to register</string>
+
+    <!--    Navbar-->
+
+    <string name="Navbar">Bottom Navigation</string>
+
+</resources>
