@@ -6,11 +6,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.CarPlace"
+    namespace = "com.example.carplace"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.CarPlace"
+        applicationId = "com.example.carplace"
         minSdk = 27
         targetSdk = 34
         versionCode = 1

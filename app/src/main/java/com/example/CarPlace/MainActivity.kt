@@ -1,11 +1,11 @@
-package com.example.CarPlace
+package com.example.carplace
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import android.content.Intent
-import com.example.CarPlace.databinding.ActivityMainBinding
+import com.example.carplace.databinding.ActivityMainBinding
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
