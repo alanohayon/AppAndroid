@@ -3,9 +3,9 @@ package com.example.carplace
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 
-class UserAccount : AppCompatActivity() {
+class Park : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_user_account)
+        setContentView(R.layout.activity_park)
     }
 }

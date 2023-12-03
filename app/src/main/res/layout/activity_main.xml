@@ -7,6 +7,14 @@
     android:background="@color/black"
     tools:context=".MainActivity">
 
+<!--    <ListView-->
+<!--        android:id="@+id/listView"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_alignParentTop="true"-->
+<!--        android:layout_centerHorizontal="true">-->
+<!--    </ListView>-->
+
     <TextView
         android:id="@+id/tv_titre_debut"
         android:layout_width="0dp"
@@ -67,5 +75,6 @@
         app:layout_constraintStart_toEndOf="@id/btnGoSignIn"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginStart="8dp"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/mainActivity">
+
+    <activity
+        android:id="@+id/mainActivity"
+        android:name="com.example.carplace.MainActivity"
+        android:label="activity_main"
+        tools:layout="@layout/activity_main" >
+        <action
+            android:id="@+id/main_to_login"
+            app:destination="@id/login"
+            />
+        <action
+            android:id="@+id/main_to_register"
+            app:destination="@id/register"
+            />
+    </activity>
+
+    <activity
+        android:id="@+id/userAccount"
+        android:name="com.example.carplace.UserAccount"
+        android:label="activity_user_account"
+        tools:layout="@layout/activity_user_account"/>
+
+    <activity
+        android:id="@+id/CarInfo"
+        android:name="com.example.carplace.CarInfo"
+        android:label="activity_car_info"
+        tools:layout="@layout/activity_car_info"/>
+
+    <activity
+        android:id="@+id/Park"
+        android:name="com.example.carplace.Park"
+        android:label="activity_park"
+        tools:layout="@layout/activity_park"/>
+
+    <activity
+        android:id="@+id/login"
+        android:name="com.example.carplace.Login"
+        android:label="activity_login"
+        tools:layout="@layout/activity_login">
+
+    <action
+        android:id="@+id/login_to_register"
+        app:destination="@id/register"
+        />
+    <action
+        android:id="@+id/login_to_hom"
+        app:destination="@id/home"
+        />
+    </activity>
+
+    <activity
+        android:id="@+id/register"
+        android:name="com.example.carplace.Register"
+        android:label="activity_register"
+        tools:layout="@layout/activity_register">
+        <action
+            android:id="@+id/register_to_login"
+            app:destination="@id/login"
+            />
+        <action
+            android:id="@+id/register_to_home"
+            app:destination="@id/home"
+            />
+    </activity>
+
+
+
+    <activity
+        android:id="@+id/home"
+        android:name="com.example.carplace.Home"
+        android:label="activity_home"
+        tools:layout="@layout/activity_home">
+
+        <action
+            android:id="@+id/home_to_account"
+            app:destination="@id/userAccount"
+            />
+        <action
+            android:id="@+id/home_to_car"
+            app:destination="@id/CarInfo"
+            />
+        <action
+            android:id="@+id/home_to_park"
+            app:destination="@id/Park"
+            />
+
+    </activity>
+
+</navigation>

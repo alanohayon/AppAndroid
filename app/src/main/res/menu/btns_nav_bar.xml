@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nav_search"
+        android:icon="@drawable/search"
+        android:title="search" />
+
+    <item
+        android:id="@+id/nav_park"
+        android:icon="@drawable/position"
+        android:iconTint="@color/white"
+        android:title="search" />
+
+    <item
+        android:id="@+id/nav_car"
+        android:icon="@drawable/car"
+        android:title="car" />
+
+    <item
+        android:id="@+id/nav_account"
+        android:icon="@drawable/account"
+        android:title="account" />
+
+
+</menu>
