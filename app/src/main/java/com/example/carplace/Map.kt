@@ -3,13 +3,12 @@ package com.example.carplace
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.PopupMenu
 import androidx.appcompat.app.AppCompatActivity
 import com.example.carplace.databinding.ActivityMapBinding
-import com.example.carplace.databinding.ActivityUserAccountBinding
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.*
 import kotlin.collections.Map
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.LatLng
@@ -17,9 +16,10 @@ import com.google.android.gms.maps.model.MarkerOptions
 
 
 // app/src/main/java/com/example/CarPlace/Map.kt
-class Map : AppCompatActivity(), OnMapReadyCallback {
+class Map : AppCompatActivity(), OnMapReadyCallback{
     private lateinit var binding: ActivityMapBinding
     private lateinit var map: GoogleMap
+    private var mGooglemap: GoogleMap? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,40 +43,41 @@ class Map : AppCompatActivity(), OnMapReadyCallback {
 
         // LA CARTE
         // Recherche du fragment de la carte dans le layout XML par son ID et le cast en SupportMapFragment.
-        val mapFragment = supportFragmentManager
-            .findFragmentById(R.id.map) as SupportMapFragment
+//        val mapFragment = supportFragmentManager
+//            .findFragmentById(R.id.map) as SupportMapFragment
 
+        val mapFragment = supportFragmentManager.findFragmentById(binding.map.id) as SupportMapFragment
         // Demande de chargement asynchrone de la carte. Lorsque la carte est prête, onMapReady sera appelé.
         mapFragment.getMapAsync(this)
+
+        val btnOptionMap = binding.mapOptionBtn
+        val optionMap = PopupMenu(this, btnOptionMap)
+        optionMap.menuInflater.inflate(R.menu.map_options, optionMap.msenu)
+
+        optionMap.setOnMenuItemClickListener { menuItem ->
+            changeMap(menuItem.itemId)
+            true
+        }
+
+        btnOptionMap.setOnClickListener {
+            optionMap.show()
+        }
+
     }
 
 
+    private fun changeMap(itemId: Int) {
+        when (itemId) {
+            R.id.normal_map -> mGooglemap?.mapType = GoogleMap.MAP_TYPE_NORMAL
+            R.id.satellite_map -> mGooglemap?.mapType = GoogleMap.MAP_TYPE_SATELLITE
+            R.id.hybrid_map -> mGooglemap?.mapType = GoogleMap.MAP_TYPE_HYBRID
+            R.id.terrain_map -> mGooglemap?.mapType = GoogleMap.MAP_TYPE_TERRAIN
+            else -> mGooglemap?.mapType = GoogleMap.MAP_TYPE_NORMAL
+        }
+    }
 
     override fun onMapReady(googleMap: GoogleMap) {
-        // Cette fonction est appelée lorsque la carte est prête à être utilisée.
-        Log.d("MapActivity", "La fonction onMapReady est bien appelée")
-
-        if (googleMap == null) {
-            Log.e("HHHH MapActivity", "Erreur : La carte est null")
-        } else {
-            map = googleMap
-            val paris = LatLng(48.8566, 2.3522)
-            map.addMarker(MarkerOptions().position(paris).title("Marker in Paris"))
-            map.moveCamera(CameraUpdateFactory.newLatLngZoom(paris, 10f))
-        }
-
-        val mapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
-        if (mapFragment == null) {
-            Log.e("HHHH MapActivity", "Erreur : Le fragment de la carte est null")
-        } else {
-            Log.d("HHHH MapActivity", "Le fragment de la carte est bien initialisé")
-        }
-
-        // LES LOGS
-        // MapActivity             com.example.carplace                 D  La fonction onMapReady est bien appelée
-        // HHHH MapActivity        com.example.carplace                 D  Le fragment de la carte est bien initialisé
-
-        //todo: problème : tous les logs sont bons mais aucune carte ne s'affiche
+        mGooglemap = googleMap
 
         }
 
