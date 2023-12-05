@@ -8,6 +8,11 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
+import android.widget.RelativeLayout
+import com.google.android.material.bottomnavigation.BottomNavigationView
+
+
+//app/src/main/java/com/example/CarPlace/Home.kt
 class Home : AppCompatActivity() {
 
     //  Variable binding qui permet de recuperer les ref de la page activity_main.xml
@@ -39,8 +44,6 @@ class Home : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        // Initialisez le binding
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -65,11 +68,21 @@ class Home : AppCompatActivity() {
         }
 
 
-//        btnGestionUser.setOnClickListener {
-//            // Rediriger vers la page de gestion de l'utilisateur (ajustez la classe de l'activité selon votre structure)
-//            val intent = Intent(applicationContext, UserAccount::class.java)
-//            startActivity(intent)
-//        }
+
+        val bottomNavView = binding.navBar.bottomNavigationView // Accès direct via le binding
+
+        bottomNavView.selectedItemId = R.id.nav_search // Sélectionne l'icône de recherche
+
+        bottomNavView.setOnNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.nav_search -> {  true }
+                R.id.nav_park -> { startActivity(Intent(this, Map::class.java)); true }
+                R.id.nav_car -> { startActivity(Intent(this, CarInfo::class.java)); true }
+                R.id.nav_account -> { startActivity(Intent(this, UserAccount::class.java)); true }
+                else -> false
+            }
+        }
+
     }
 
 

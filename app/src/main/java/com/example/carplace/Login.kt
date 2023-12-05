@@ -22,18 +22,9 @@ class Login : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
 
-        // Connexion à l'authent de firebase
         auth = Firebase.auth
 
-        //  On recupere le user courant (comme qd on verifier que la variable session existe)
         val currentUser = auth.currentUser
-
-        //  Si le user connecté alors le ramener vers la page home
-//        if (currentUser != null) {
-//            val intent = Intent(applicationContext, Home::class.java)
-//            startActivity(intent)
-//            finish()
-//        }
 
     }
 

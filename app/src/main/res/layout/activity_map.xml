@@ -1,25 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--  app/src/main/res/layout/activity_user_account.xml  -->
-
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UserAccount">
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="View User Account"
-        android:textSize="34sp"
-        tools:layout_editor_absoluteX="63dp"
-        tools:layout_editor_absoluteY="185dp" />
+    tools:context=".Map">
 
     <include
         android:id="@+id/nav_bar"
         layout="@layout/nav_bar" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

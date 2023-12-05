@@ -6,4 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".CarInfo">
 
+    <include
+        android:id="@+id/nav_bar"
+        layout="@layout/nav_bar" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
