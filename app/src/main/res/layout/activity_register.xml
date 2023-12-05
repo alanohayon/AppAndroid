@@ -5,64 +5,74 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black"
-    tools:context="com.example.CarPlace.Register">
-
+    tools:context=".Register">
 
     <TextView
         android:id="@+id/viewPren"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="50dp"
         android:text="@string/prenomView"
         android:textColor="@color/white"
-        tools:layout_editor_absoluteX="36dp"
-        tools:layout_editor_absoluteY="160dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewSignUp" />
 
     <TextView
         android:id="@+id/viewEmailUp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="10dp"
         android:text="@string/emailView"
         android:textColor="@color/white"
-        tools:layout_editor_absoluteX="36dp"
-        tools:layout_editor_absoluteY="229dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/inputFirstName" />
 
     <TextView
         android:id="@+id/viewMdpUp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="245dp"
+        android:layout_marginTop="10dp"
         android:text="@string/mdpView"
         android:textColor="@color/white"
-        tools:layout_editor_absoluteX="245dp"
-        tools:layout_editor_absoluteY="229dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/inputName" />
 
     <TextView
         android:id="@+id/dateN"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="245dp"
+        android:layout_marginTop="10dp"
         android:text="@string/dateNaissanceView"
         android:textColor="@color/white"
-        tools:layout_editor_absoluteX="244dp"
-        tools:layout_editor_absoluteY="292dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/inputPwd" />
 
     <TextView
         android:id="@+id/viewSignUp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="84dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="80dp"
         android:fontFamily="monospace"
         android:text="@string/inscriptioneView"
         android:textColor="@color/white"
         android:textSize="24sp"
         android:typeface="normal"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.142"
+        app:layout_constraintHorizontal_bias="0.2"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <EditText
-        android:id="@+id/inputNom"
+        android:id="@+id/inputName"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:layout_marginStart="244dp"
         android:layout_marginTop="2dp"
         android:autofillHints="lastname"
@@ -81,17 +91,17 @@
         android:id="@+id/viewNom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="244dp"
-        android:layout_marginTop="160dp"
+        android:layout_marginStart="245dp"
+        android:layout_marginTop="50dp"
         android:text="@string/nomView"
         android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/viewSignUp" />
 
     <EditText
-        android:id="@+id/inputPren"
+        android:id="@+id/inputFirstName"
         android:layout_width="170dp"
-        android:layout_height="35dp"
+        android:layout_height="48dp"
         android:layout_marginStart="36dp"
         android:layout_marginTop="2dp"
         android:autofillHints="name"
@@ -109,7 +119,9 @@
     <EditText
         android:id="@+id/inputEmailUp"
         android:layout_width="168dp"
-        android:layout_height="38dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="2dp"
         android:autofillHints="emailAddress"
         android:ems="10"
         android:fontFamily="sans-serif"
@@ -119,13 +131,15 @@
         android:singleLine="true"
         android:textColor="@color/white"
         android:textSize="12sp"
-        tools:layout_editor_absoluteX="36dp"
-        tools:layout_editor_absoluteY="247dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewEmailUp" />
 
     <EditText
-        android:id="@+id/inputMdpUp"
+        android:id="@+id/inputPwd"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
+        android:layout_marginStart="245dp"
+        android:layout_marginTop="2dp"
         android:autofillHints="password"
         android:ems="10"
         android:fontFamily="sans-serif"
@@ -135,13 +149,15 @@
         android:singleLine="true"
         android:textColor="@color/white"
         android:textSize="12sp"
-        tools:layout_editor_absoluteX="245dp"
-        tools:layout_editor_absoluteY="247dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewMdpUp" />
 
     <EditText
-        android:id="@+id/inputConfMdp"
+        android:id="@+id/inputConfPwd"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="2dp"
         android:autofillHints="password"
         android:ems="10"
         android:fontFamily="sans-serif"
@@ -151,46 +167,50 @@
         android:singleLine="true"
         android:textColor="@color/white"
         android:textSize="12sp"
-        tools:layout_editor_absoluteX="36dp"
-        tools:layout_editor_absoluteY="313dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewConfMdp" />
 
     <TextView
         android:id="@+id/viewConfMdp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="10dp"
         android:text="@string/mdpConfView"
         android:textColor="@color/white"
-        tools:layout_editor_absoluteX="36dp"
-        tools:layout_editor_absoluteY="292dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/inputEmailUp" />
 
     <EditText
         android:id="@+id/inputDate"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
+        android:layout_marginStart="245dp"
+        android:layout_marginTop="2dp"
         android:autofillHints="date"
         android:ems="10"
         android:fontFamily="sans-serif"
         android:hint="@string/dateNaissanceHolder"
-        android:inputType="number|numberSigned"
+        android:inputType="date"
         android:selectAllOnFocus="true"
         android:singleLine="false"
         android:textColor="@color/white"
         android:textSize="12sp"
-        tools:layout_editor_absoluteX="244dp"
-        tools:layout_editor_absoluteY="313dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dateN" />
 
-    <LinearLayout
-        android:id="@+id/buttonContainer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="471dp">
+<!--    <LinearLayout-->
+<!--        android:id="@+id/buttonContainer"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="horizontal"-->
+<!--        tools:layout_editor_absoluteX="0dp"-->
+<!--        tools:layout_editor_absoluteY="471dp">-->
 
-        <!-- Bouton S'inscrire -->
+<!--        &lt;!&ndash; Bouton S'inscrire &ndash;&gt;-->
 
-        <!-- Bouton Se connecter -->
-    </LinearLayout>
+<!--        &lt;!&ndash; Bouton Se connecter &ndash;&gt;-->
+<!--    </LinearLayout>-->
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -202,24 +222,29 @@
     <Button
         android:id="@+id/btnGoSignIn"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
+        android:layout_marginTop="550dp"
+        android:layout_marginEnd="15dp"
         android:layout_weight="1"
         android:backgroundTint="#FFA500"
         android:text="@string/seConnecterBtn"
         android:textColor="@color/white"
-        tools:layout_editor_absoluteX="272dp"
-        tools:layout_editor_absoluteY="561dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/btnSignUp"
-        android:layout_width="246dp"
-        android:layout_height="wrap_content"
+        android:layout_width="224dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="550dp"
         android:layout_weight="1"
         android:backgroundTint="#FFA500"
         android:text="@string/sinscrireBtn"
         android:textColor="@color/white"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="561dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

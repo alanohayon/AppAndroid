@@ -2,8 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -13,39 +11,64 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Material3.DynamicColors.Light"
-        tools:targetApi="31">
-
+        tools:targetApi="34">
         <activity
-            android:name="com.example.carplace.Home"
+            android:name=".Park"
+            android:exported="false" />
+        <activity
+            android:name=".CarInfo"
+            android:exported="false" />
+        <activity
+            android:name=".UserAccount"
             android:exported="true">
-        </activity>
+            <!--<intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>-->
+        </activity>
         <activity
-            android:name="com.example.carplace.MainActivity"
+            android:name=".Home"
+            android:exported="true">
+
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
+        </activity>
+        <activity
+            android:name=".Register"
+            android:exported="true">
+
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
+        </activity>
+        <activity
+            android:name=".Login"
+            android:exported="true">
+
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
+        </activity>
+        <activity
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity
-            android:name="com.example.carplace.Register"
-            android:exported="true"
-            android:theme="@style/Theme.Material3.DynamicColors.Light">
-        </activity>
-
-        <activity
-            android:name="com.example.carplace.Login"
-            android:exported="true">
-        </activity>
-
-        <!-- Ajout User -->
-        <activity
-            android:name="com.example.carplace.User"
-            android:exported="true">
-        </activity>
-
     </application>
 
 </manifest>
