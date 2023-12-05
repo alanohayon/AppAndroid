@@ -3,10 +3,7 @@ package com.example.carplace
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.navigation.NavController
-import androidx.navigation.findNavController
 import com.example.carplace.databinding.ActivityHomeBinding
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -16,7 +13,7 @@ class Home : AppCompatActivity() {
     //  Variable binding qui permet de recuperer les ref de la page activity_main.xml
     private lateinit var binding: ActivityHomeBinding
 
-    private lateinit var navController: NavController
+    //private lateinit var navController: NavController
 
 
     // Connexion à l'authent de firebase
@@ -47,14 +44,6 @@ class Home : AppCompatActivity() {
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Récupérez la référence à BottomNavigationView à partir du fichier nav_bar.xml
-        val bottomNavigationView = binding.navBar.bottomNavigationView
-
-        // Fonction qui gere la navigation
-        navigation(bottomNavigationView)
-        // Après avoir initialisé votre binding dans onCreate
-        navController = findNavController(R.id.homeViewPrincipal)
-
 
         val userDetail = binding.userDetail
         val btnLogout = binding.logout
@@ -83,28 +72,6 @@ class Home : AppCompatActivity() {
 //        }
     }
 
-    private fun navigation(bottomNavigationView: BottomNavigationView) {
-        bottomNavigationView.setOnItemSelectedListener { item ->
-            when (item.itemId) {
-//                R.id.nav_search -> {
-//                    // Naviguer vers la destination "search"
-//                    navController.navigate(R.id.home_to_search)
-//                }
-                R.id.nav_park -> {
-                    // Naviguer vers la destination "position"
-                    navController.navigate(R.id.home_to_park)
-                }
-                R.id.nav_car -> {
-                    // Naviguer vers la destination "car"
-                    navController.navigate(R.id.home_to_car)
-                }
-                R.id.nav_account -> {
-                    // Naviguer vers la destination "account"
-                    navController.navigate(R.id.home_to_account)
-                }
-            }
-            true
-        }
-    }
+
 
 }
