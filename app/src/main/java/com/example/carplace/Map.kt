@@ -52,7 +52,7 @@ class Map : AppCompatActivity(), OnMapReadyCallback{
 
         val btnOptionMap = binding.mapOptionBtn
         val optionMap = PopupMenu(this, btnOptionMap)
-        optionMap.menuInflater.inflate(R.menu.map_options, optionMap.msenu)
+        optionMap.menuInflater.inflate(R.menu.map_options, optionMap.menu)
 
         optionMap.setOnMenuItemClickListener { menuItem ->
             changeMap(menuItem.itemId)
