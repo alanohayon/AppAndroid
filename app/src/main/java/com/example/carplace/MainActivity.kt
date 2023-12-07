@@ -42,12 +42,12 @@ class MainActivity : AppCompatActivity() {
 
         //si le user connecté alors le ramener vers la page home
         if(currentUser != null){
-            Toast.makeText(baseContext, "You are already connected.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(baseContext, "Vous êtes déjà connecté.", Toast.LENGTH_SHORT).show()
             val intent = Intent(applicationContext, Home::class.java)
             startActivity(intent)
             finish()
         } else {
-            Toast.makeText(baseContext, "You are not connected.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(baseContext, "Vous n'êtes pas connecté.", Toast.LENGTH_SHORT).show()
         }
 
     }

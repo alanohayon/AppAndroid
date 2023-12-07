@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import com.example.carplace.databinding.ActivityMapBinding
 import com.google.android.gms.common.api.Status
+import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -24,6 +25,9 @@ import com.google.android.gms.maps.model.BitmapDescriptor
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.tasks.CancellationToken
+import com.google.android.gms.tasks.CancellationTokenSource
+import com.google.android.gms.tasks.OnTokenCanceledListener
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment
@@ -31,6 +35,9 @@ import com.google.android.libraries.places.widget.AutocompleteSupportFragment
 
 // app/src/main/java/com/example/CarPlace/Map.kt
 class Map : AppCompatActivity(), OnMapReadyCallback{
+    companion object {
+        private const val REQUEST_LOCATION_PERMISSION = 1
+    }
     private lateinit var binding: ActivityMapBinding
     private lateinit var map: GoogleMap
     private var mGooglemap: GoogleMap? = null
@@ -81,7 +88,22 @@ class Map : AppCompatActivity(), OnMapReadyCallback{
                 as AutocompleteSupportFragment
         autocompleteFragment.setPlaceFields(listOf(Place.Field.ID, Place.Field.NAME, Place.Field.LAT_LNG))
 
-        // Check la permission de localisation
+        //  Lorsqu'il fait une recherche
+        autocompleteFragment.setOnPlaceSelectedListener(object : com.google.android.libraries.places.widget.listener.PlaceSelectionListener {
+            override fun onPlaceSelected(place: Place) {
+                Log.i("Map", "Place: ${place.name}, ${place.id}")
+                val location = place.latLng
+                zoomOnMap(location!!, iconPosition)
+            }
+            override fun onError(p0: Status) {
+                Log.i("Map", "Erreur lors de la recherche: $p0")
+                Toast.makeText(this@Map, "Erreur lors de la recherche: $p0", Toast.LENGTH_SHORT).show()
+            }
+
+        })
+
+        // Recuper sa localisation
+        val fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         if (ActivityCompat.checkSelfPermission(
                 this,
                 Manifest.permission.ACCESS_FINE_LOCATION
@@ -92,45 +114,25 @@ class Map : AppCompatActivity(), OnMapReadyCallback{
         ) {
             return
         }
-
-        //  Lorsqu'il fait une recherche
-        autocompleteFragment.setOnPlaceSelectedListener(object : com.google.android.libraries.places.widget.listener.PlaceSelectionListener {
-            override fun onPlaceSelected(place: Place) {
-                Log.i("Map", "Place: ${place.name}, ${place.id}")
-                val location = place.latLng
-                zoomOnMap(location!!, iconPosition)
-            }
-
-            override fun onError(p0: Status) {
-                Log.i("Map", "An error occurred: $p0")
-                Toast.makeText(this@Map, "An error occurred: $p0", Toast.LENGTH_SHORT).show()
-            }
-
+        // Après la verification de la permission
+        fusedLocationClient.getCurrentLocation(LocationRequest.PRIORITY_HIGH_ACCURACY, object : CancellationToken() {
+            override fun onCanceledRequested(p0: OnTokenCanceledListener) = CancellationTokenSource().token
+            override fun isCancellationRequested() = false
         })
-
-        //  Si la position actuelle est disponible, zoom sur la carte
-        val fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
-        fusedLocationClient.lastLocation
+            // Si la localisation est null
             .addOnSuccessListener { location: Location? ->
-                //   Zoom sur la carte avec la position actuelle
-                if (location != null) {
-                    //  ECE par defaut
-                    val location = LatLng(48.85209, 2.28602)
-                    zoomOnMap(location, iconPosition)
-                } else {
-                    //  La derniere  position connue n'est pas disponible
-                    Toast.makeText(this@Map, "Last known location not available", Toast.LENGTH_SHORT).show()
+                if (location == null)
+                    Toast.makeText(this, "Erreur de la localisation.", Toast.LENGTH_SHORT).show()
+                else {
+                    val lat = location.latitude
+                    val lon = location.longitude
+                    val userLocation = LatLng(lat, lon)
+                    zoomOnMap(userLocation, iconPosition)
                 }
             }
-            //   Si il y a une erreur
-            .addOnFailureListener { e ->
-                Log.e("Map", "Error getting last known location: $e")
-                Toast.makeText(this@Map, "Error getting last known location", Toast.LENGTH_SHORT).show()
-            }
-
-
     }
 
+    // Zoom sur la carte
     private fun zoomOnMap(location: LatLng, iconPosition: BitmapDescriptor) {
 
         mGooglemap?.animateCamera(CameraUpdateFactory.newLatLngZoom(location, 13f))
