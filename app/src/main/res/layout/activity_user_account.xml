@@ -12,14 +12,26 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="View User Account"
+        android:text="Mon profil"
         android:textSize="34sp"
         tools:layout_editor_absoluteX="63dp"
         tools:layout_editor_absoluteY="185dp" />
 
+
     <include
         android:id="@+id/nav_bar"
         layout="@layout/nav_bar" />
+
+    <Button
+        android:id="@+id/btnAddInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ajouter des infos à mon profil"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"/>
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

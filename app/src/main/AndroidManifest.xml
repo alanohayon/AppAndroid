@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
-    xmlns:tools="http://schemas.android.com/tools">
-    <uses-permission android:name="android.permission.INTERNET"/>
+    xmlns:tools="http://schemas.android.com/tools"
+    android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
 
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -15,10 +15,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
         tools:targetApi="34">
+        <activity
+            android:name=".AddInfoActivity"
+            android:exported="true">
+
+        </activity>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyD-znf82S--QE5RgKOrczaeaLx0BqU1uWw"/>
+            android:value="AIzaSyD-znf82S--QE5RgKOrczaeaLx0BqU1uWw" />
 
         <activity
             android:name=".Map"

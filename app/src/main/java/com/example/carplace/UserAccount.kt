@@ -19,10 +19,12 @@ class UserAccount : AppCompatActivity() {
         binding = ActivityUserAccountBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+
+
+        /* ********** */
+        /* NAVIGATION */
         val bottomNavView = binding.navBar.bottomNavigationView
-
         bottomNavView.selectedItemId = R.id.nav_account // Sélectionne l'icône de compte
-
         bottomNavView.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.nav_search -> { startActivity(Intent(this, Home::class.java)); true }
@@ -31,6 +33,11 @@ class UserAccount : AppCompatActivity() {
                 R.id.nav_account -> { true }
                 else -> false
             }
+        }
+
+        binding.btnAddInfo.setOnClickListener {
+            val intent = Intent(this, AddInfoActivity::class.java)
+            startActivity(intent)
         }
     }
 }

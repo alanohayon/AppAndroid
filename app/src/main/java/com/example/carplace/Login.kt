@@ -11,6 +11,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
+// app/src/main/java/com/example/CarPlace/Login.kt
 class Login : AppCompatActivity() {
 
     //  Variable binding qui permet de recuperer les ref de la page activity_main.xml
