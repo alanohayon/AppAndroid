@@ -1,11 +1,11 @@
-package com.example.carplace
+package com.example.carplace.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import android.content.Intent
-import com.example.carplace.databinding.ActivityMainBinding
+import com.example.carplace.activity.databinding.ActivityMainBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.ktx.database
@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
         //si le user connecté alors le ramener vers la page home
         if(currentUser != null){
             Toast.makeText(baseContext, "Vous êtes déjà connecté.", Toast.LENGTH_SHORT).show()
-            val intent = Intent(applicationContext, Home::class.java)
+            val intent = Intent(applicationContext, MapActivity::class.java)
             startActivity(intent)
             finish()
         } else {
@@ -66,7 +66,7 @@ class MainActivity : AppCompatActivity() {
         //  Click sur connexion
         btnGoSignIn.setOnClickListener {
             //  Redirection à la page connexion
-            val intent = Intent(applicationContext, Login::class.java)
+            val intent = Intent(applicationContext, LoginActivity::class.java)
             startActivity(intent)
             finish()
             Log.d("click login", "click sur btn connexion")
@@ -75,7 +75,7 @@ class MainActivity : AppCompatActivity() {
         //  Click sur inscription
         btnGoSignUp.setOnClickListener {
             //redirection à la page inscription
-            val intent = Intent(applicationContext, Register::class.java)
+            val intent = Intent(applicationContext, RegisterActivity::class.java)
             startActivity(intent)
             finish()
             Log.d("click register", "click sur btn inscription")

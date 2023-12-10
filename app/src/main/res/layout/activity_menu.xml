@@ -4,10 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ParkActivity">
+    tools:context=".MenuActivity">
 
     <include
         android:id="@+id/nav_bar"
-        layout="@layout/nav_bar" />
+        layout="@layout/nav_bar"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

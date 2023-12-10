@@ -1,4 +1,4 @@
-package com.example.carplace
+package com.example.carplace.activity
 
 import android.Manifest
 import android.content.Intent
@@ -6,14 +6,11 @@ import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
 import android.util.Log
-import android.view.Gravity
-import android.view.WindowManager
 import android.widget.PopupMenu
-import android.widget.PopupWindow
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
-import com.example.carplace.databinding.ActivityMapBinding
+import com.example.carplace.activity.databinding.ActivityMapBinding
 import com.google.android.gms.common.api.Status
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationServices
@@ -34,10 +31,8 @@ import com.google.android.libraries.places.widget.AutocompleteSupportFragment
 
 
 // app/src/main/java/com/example/CarPlace/Map.kt
-class Map : AppCompatActivity(), OnMapReadyCallback{
-    companion object {
-        private const val REQUEST_LOCATION_PERMISSION = 1
-    }
+class MapActivity : AppCompatActivity(), OnMapReadyCallback{
+
     private lateinit var binding: ActivityMapBinding
     private lateinit var map: GoogleMap
     private var mGooglemap: GoogleMap? = null
@@ -47,39 +42,30 @@ class Map : AppCompatActivity(), OnMapReadyCallback{
         super.onCreate(savedInstanceState)
         binding = ActivityMapBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        val iconPosition = BitmapDescriptorFactory.fromResource(R.drawable.icon_position)
 
-
-        // LA NAVIGATION
+        // NAVIGATION BAR
         val bottomNavView = binding.navBar.bottomNavigationView
-        bottomNavView.selectedItemId = R.id.nav_park
-        bottomNavView.setOnNavigationItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.nav_search -> { startActivity(Intent(this, Home::class.java)); true }
-                R.id.nav_park -> { true }
-                R.id.nav_car -> { startActivity(Intent(this, CarInfo::class.java)); true }
-                R.id.nav_account -> { startActivity(Intent(this, UserAccount::class.java)); true }
-                else -> false
-            }
-        }
+        bottomNavView.selectedItemId = R.id.nav_map
+        Utils.setupMenu(bottomNavView)
 
         // LA CARTE
         val mapFragment = supportFragmentManager.findFragmentById(binding.map.id) as SupportMapFragment
         // Lorsque la carte est prête, onMapReady sera appelé.
         mapFragment.getMapAsync(this)
 
+        val iconPosition = BitmapDescriptorFactory.fromResource(R.drawable.icon_position)
 
         val btnOptionMap = binding.mapOptionBtn
         val optionMap = PopupMenu(this, btnOptionMap)
         optionMap.menuInflater.inflate(R.menu.map_options, optionMap.menu)
 
+        btnOptionMap.setOnClickListener {
+            optionMap.show()
+        }
+
         optionMap.setOnMenuItemClickListener { menuItem ->
             changeMap(menuItem.itemId)
             true
-        }
-
-        btnOptionMap.setOnClickListener {
-            optionMap.show()
         }
 
         // LA RECHERCHE
@@ -97,12 +83,12 @@ class Map : AppCompatActivity(), OnMapReadyCallback{
             }
             override fun onError(p0: Status) {
                 Log.i("Map", "Erreur lors de la recherche: $p0")
-                Toast.makeText(this@Map, "Erreur lors de la recherche: $p0", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@MapActivity, "Erreur lors de la recherche: $p0", Toast.LENGTH_SHORT).show()
             }
 
         })
 
-        // Recuper sa localisation
+        // Recuperer sa localisation
         val fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         if (ActivityCompat.checkSelfPermission(
                 this,
@@ -124,9 +110,7 @@ class Map : AppCompatActivity(), OnMapReadyCallback{
                 if (location == null)
                     Toast.makeText(this, "Erreur de la localisation.", Toast.LENGTH_SHORT).show()
                 else {
-                    val lat = location.latitude
-                    val lon = location.longitude
-                    val userLocation = LatLng(lat, lon)
+                    val userLocation = LatLng(location.latitude, location.longitude)
                     zoomOnMap(userLocation, iconPosition)
                 }
             }
@@ -141,14 +125,13 @@ class Map : AppCompatActivity(), OnMapReadyCallback{
         mGooglemap?.setOnMarkerClickListener { clickedMarker ->
             if (clickedMarker == marker) {
                 //afficher un toats
-                Toast.makeText(this@Map, "Marker clicked", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@MapActivity, "Marker clicked", Toast.LENGTH_SHORT).show()
                 true
             } else {
                 false
             }
         }
     }
-
 
 
     private fun changeMap(itemId: Int) {

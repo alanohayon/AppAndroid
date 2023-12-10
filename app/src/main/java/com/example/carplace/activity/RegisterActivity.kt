@@ -1,4 +1,4 @@
-package com.example.carplace
+package com.example.carplace.activity
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -6,12 +6,12 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
-import com.example.carplace.databinding.ActivityRegisterBinding
+import com.example.carplace.activity.databinding.ActivityRegisterBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
-class Register : AppCompatActivity() {
+class RegisterActivity : AppCompatActivity() {
 
     //  Variable binding qui permet de recuperer les ref de la page activity_main.xml
     private lateinit var binding: ActivityRegisterBinding
@@ -30,7 +30,7 @@ class Register : AppCompatActivity() {
 
         //  Si le user connecté alors le ramener vers la page home
         if (currentUser != null) {
-            val intent = Intent(applicationContext, Home::class.java)
+            val intent = Intent(applicationContext, MapActivity::class.java)
             startActivity(intent)
             finish()
         }
@@ -56,7 +56,7 @@ class Register : AppCompatActivity() {
 
         //  Click sur CONNEXION
         btnGoSignIn.setOnClickListener {
-            val intent = Intent(applicationContext, Login::class.java)
+            val intent = Intent(applicationContext, LoginActivity::class.java)
             startActivity(intent)
             finish()
         }
@@ -85,12 +85,12 @@ class Register : AppCompatActivity() {
                         Log.d("SUCCESS", "createUserWithEmail:success")
 
                         Toast.makeText(
-                            this@Register,
+                            this@RegisterActivity,
                             "Compte crée 👌.",
                             Toast.LENGTH_SHORT,
                         ).show()
 
-                        val intent = Intent(applicationContext, Login::class.java)
+                        val intent = Intent(applicationContext, LoginActivity::class.java)
                         startActivity(intent)
                         finish()
 
@@ -99,7 +99,7 @@ class Register : AppCompatActivity() {
                         Log.w("ECHEC", "createUserWithEmail:failure", task.exception)
 
                         Toast.makeText(
-                            this@Register,
+                            this@RegisterActivity,
                             "Echec de la creation 😕.",
                             Toast.LENGTH_SHORT,
                         ).show()
@@ -111,7 +111,7 @@ class Register : AppCompatActivity() {
 
         //  Aller sur la page connexion
         btnGoSignIn.setOnClickListener {
-            val intent = Intent(applicationContext, Login::class.java)
+            val intent = Intent(applicationContext, LoginActivity::class.java)
             startActivity(intent)
             finish()
         }

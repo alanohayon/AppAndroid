@@ -13,6 +13,7 @@
         android:background="#E6E1E1"
         app:itemIconTint="@drawable/item_selector"
         app:labelVisibilityMode="unlabeled"
+        app:cornerRadius="20dp"
         app:menu="@menu/btns_nav_bar" />
 
 </RelativeLayout>

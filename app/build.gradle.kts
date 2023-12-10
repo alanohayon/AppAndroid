@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.carplace"
+    namespace = "com.example.carplace.activity"
     compileSdk = 34
 
     defaultConfig {

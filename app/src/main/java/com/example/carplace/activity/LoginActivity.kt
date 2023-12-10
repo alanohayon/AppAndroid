@@ -1,4 +1,4 @@
-package com.example.carplace
+package com.example.carplace.activity
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -6,12 +6,12 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
-import com.example.carplace.databinding.ActivityLoginBinding
+import com.example.carplace.activity.databinding.ActivityLoginBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
-class Login : AppCompatActivity() {
+class LoginActivity : AppCompatActivity() {
 
     //  Variable binding qui permet de recuperer les ref de la page activity_main.xml
     private lateinit var binding: ActivityLoginBinding
@@ -60,7 +60,7 @@ class Login : AppCompatActivity() {
                             "Authentification reussi.",
                             Toast.LENGTH_SHORT,
                         ).show()
-                        val intent = Intent(applicationContext, Home::class.java)
+                        val intent = Intent(applicationContext, MapActivity::class.java)
                         startActivity(intent)
                         finish()
 
@@ -79,7 +79,7 @@ class Login : AppCompatActivity() {
 
         //  Aller sur la page inscription
         btnGoSignUp.setOnClickListener {
-            val intent = Intent(applicationContext, Register::class.java)
+            val intent = Intent(applicationContext, RegisterActivity::class.java)
             startActivity(intent)
             finish()
         }
