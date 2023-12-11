@@ -9,7 +9,10 @@ import android.widget.Toast
 import com.example.carplace.databinding.ActivityRegisterBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+
 
 class Register : AppCompatActivity() {
 
@@ -18,6 +21,9 @@ class Register : AppCompatActivity() {
 
     // Connexion à l'authent de firebase
     private lateinit var auth: FirebaseAuth
+
+    // Instance de la BDD
+    private lateinit var database: DatabaseReference
 
     override fun onStart() {
         super.onStart()
@@ -39,6 +45,10 @@ class Register : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val databaseUrl = "https://carplace-76342-default-rtdb.europe-west1.firebasedatabase.app"
+        database = Firebase.database(databaseUrl).reference
+
 
         // Initialisez le binding
         binding = ActivityRegisterBinding.inflate(layoutInflater)
@@ -64,17 +74,18 @@ class Register : AppCompatActivity() {
         btnSignUp.setOnClickListener {
 
             progressBar.visibility = View.VISIBLE
-            val nom = inputName.text.toString()
-            val pren = inputFirstName.text.toString()
+            val lastName = inputName.text.toString()
+            val firstName = inputFirstName.text.toString()
             val email = inputEmail.text.toString()
             val mdp = inputPwd.text.toString()
             val mdpConf = inputPwdConf.text.toString()
-            val date = inputDate.text.toString()
+            val birthDate = inputDate.text.toString()
 
             if (email.isEmpty() || mdp.isEmpty() || mdpConf.isEmpty()) {
                 Toast.makeText(baseContext, "Veuillez remplir les champs obligatoires", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
+
 
             //  Ajout d'un nouveau user si il n'existe pas dans firebase
             auth.createUserWithEmailAndPassword(email, mdp)
@@ -83,6 +94,16 @@ class Register : AppCompatActivity() {
                     //success, connexion reussie afficher log/message
                     if (task.isSuccessful) {
                         Log.d("SUCCESS", "createUserWithEmail:success")
+
+                        // Récupération de l'ID de l'utilisateur créé
+                        val userId = auth.currentUser?.uid ?: return@addOnCompleteListener
+
+                        // Enregistrement des informations supplémentaires dans la base de données
+                        database.child("users").child(userId).child("firstName").setValue(firstName)
+                        database.child("users").child(userId).child("email").setValue(email)
+                        database.child("users").child(userId).child("lastName").setValue(lastName)
+                        database.child("users").child(userId).child("birthDate").setValue(birthDate)
+
 
                         Toast.makeText(
                             this@Register,
