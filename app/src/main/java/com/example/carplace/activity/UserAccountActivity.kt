@@ -10,6 +10,7 @@ import com.example.carplace.model.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 
@@ -19,8 +20,8 @@ class UserAccountActivity : AppCompatActivity() {
     private lateinit var binding: ActivityUserAccountBinding
     // Connexion à l'authent de firebase
     private lateinit var auth: FirebaseAuth
-    private lateinit var database: DatabaseReference
-
+    private var firebaseDatabase: FirebaseDatabase? = null
+    private var databaseReference: DatabaseReference? = null
 
     override fun onStart() {
         super.onStart()
@@ -44,48 +45,44 @@ class UserAccountActivity : AppCompatActivity() {
         binding = ActivityUserAccountBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        firebaseDatabase = FirebaseDatabase.getInstance()
+        databaseReference = firebaseDatabase?.getReference("users")
+
         val userDetail = binding.userDetail
         val btnLogout = binding.logout
         val btnGestionUser = binding.btnGestionUser
-
-        database = Firebase.database.getReference("carplace-db")
-
 
         // Connexion à l'authent de firebase
         auth = Firebase.auth
         val currentUser = auth.currentUser
         userDetail.text = currentUser?.email
-
         // recuperer les info du user
         binding.btnSave.setOnClickListener {
 
-            val userId = FirebaseAuth.getInstance().currentUser?.uid ?: return@setOnClickListener
-            val firstName = binding.firstNameEditText.text.toString()
-            val lastName = binding.lastNameEditText.text.toString()
-            val email = binding.emailEditText.text.toString()
-            val phoneNumber = binding.phoneEditText.text.toString().toInt()
-            val date = "11/03/2002"
-            val password = binding.passwordEditText.text.toString()
-            val city = binding.cityEditText.text.toString()
 
-//            userEntity.child("id").setValue(userId)
-//            userEntity.child("firstName").setValue(firstName)
-//            userEntity.child("lastName").setValue(lastName)
+            Toast.makeText(this, "1", Toast.LENGTH_LONG).show()
 
-//            Ref.child("Car")
-//            val test = userRef.child("firstName").setValue(firstName)
-//            userRef.child(userId).child("lastName").setValue(lastName)
+//            val userId = FirebaseAuth.getInstance().currentUser!!.uid
+//            val firstName = binding.firstNameEditText.text.toString()
+//            val lastName = binding.lastNameEditText.text.toString()
+//            val email = binding.emailEditText.text.toString()
+//            val phoneNumber = binding.phoneEditText.text.toString().toInt()
+//            val date = "11/03/2002"
+//            val password = binding.passwordEditText.text.toString()
+//            val city = binding.cityEditText.text.toString()
 
-//            val user = User(userId, firstName, lastName, email, password, date, phoneNumber,  city)
-//            user.addUserToDatabase()
+            val user = User("userId", "firstName", "lastName", "email", "password", "date", 123456, "city")
 
-//            if (test.isSuccessful) {
-//                Toast.makeText(this, "Informations enregistrées", Toast.LENGTH_SHORT).show()
-//            } else {
-//                Toast.makeText(this, "Erreur lors de l'enregistrement", Toast.LENGTH_SHORT).show()
-//            }
+            Toast.makeText(this, "2", Toast.LENGTH_LONG).show()
+            databaseReference?.child("212")?.setValue("testout")
+//                .addOnCompleteListener {
+//                    Toast.makeText(this, "Data inserted successfully", Toast.LENGTH_LONG).show()
+//                }.addOnFailureListener { err ->
+//                    Toast.makeText(this, "Error ${err.message}", Toast.LENGTH_LONG).show()
+//                }
 
-            database.child("users").child("papapa").setValue("peedeeze")
+            Toast.makeText(this, "3", Toast.LENGTH_LONG).show()
+
 
 
         }

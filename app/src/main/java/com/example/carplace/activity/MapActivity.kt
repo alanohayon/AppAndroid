@@ -16,6 +16,7 @@ import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.BitmapDescriptor
@@ -122,12 +123,17 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback{
 
         })
 
+        OnInfoWindowClickListener { marker ->
+            val intent = Intent(this, ParkActivity::class.java)
+            startActivity(intent)
+        }
+
     }
 
     // Zoom sur la carte
     private fun zoomOnMap(location: LatLng, iconPosition: BitmapDescriptor) {
 
-        val marker = mGooglemap?.addMarker(MarkerOptions().position(location).icon(iconPosition).title(location.toString()))
+        val marker = mGooglemap?.addMarker(MarkerOptions().position(location).icon(iconPosition).title("Titre").snippet("Votre position actuelle"))
         mGooglemap?.animateCamera(CameraUpdateFactory.newLatLngZoom(location, 13f))
         marker?.showInfoWindow()
     }
