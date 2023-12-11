@@ -8,6 +8,7 @@ import android.content.Intent
 import com.example.carplace.activity.databinding.ActivityMainBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 
@@ -24,12 +25,15 @@ class MainActivity : AppCompatActivity() {
     private val database = Firebase.database
 
     //  Connexion ou creation de la "BDD"
-    private val myRef = database.getReference("BDD-CarPlace")
+    private val myRef = database.getReference("carplace-db")
+
 
 
     //  Avant même d'afficher la page
     override fun onStart() {
         super.onStart()
+
+        myRef.setValue("Hello, World!")
 
         // "table" Car (ce n'est pas vraiment une table en postgresql)
         myRef.ref.child("Car")
@@ -43,7 +47,7 @@ class MainActivity : AppCompatActivity() {
         //si le user connecté alors le ramener vers la page home
         if(currentUser != null){
             Toast.makeText(baseContext, "Vous êtes déjà connecté.", Toast.LENGTH_SHORT).show()
-            val intent = Intent(applicationContext, MapActivity::class.java)
+            val intent = Intent(applicationContext, UserAccountActivity::class.java)
             startActivity(intent)
             finish()
         } else {

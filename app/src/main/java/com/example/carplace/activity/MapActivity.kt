@@ -48,10 +48,17 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback{
         bottomNavView.selectedItemId = R.id.nav_map
         Utils.setupMenu(bottomNavView)
 
-        // LA CARTE
+        // Affichage de la carte (async) avec les markers
         val mapFragment = supportFragmentManager.findFragmentById(binding.map.id) as SupportMapFragment
-        // Lorsque la carte est prête, onMapReady sera appelé.
-        mapFragment.getMapAsync(this)
+        mapFragment.getMapAsync { googleMap ->
+            mGooglemap = googleMap
+
+            mGooglemap?.setOnMarkerClickListener {clickedMarker ->
+                clickedMarker.showInfoWindow()
+                Toast.makeText(this@MapActivity, clickedMarker.title, Toast.LENGTH_SHORT).show()
+                true
+            }
+        }
 
         val iconPosition = BitmapDescriptorFactory.fromResource(R.drawable.icon_position)
 
@@ -67,26 +74,6 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback{
             changeMap(menuItem.itemId)
             true
         }
-
-        // LA RECHERCHE
-        Places.initialize(applicationContext, getString(R.string.mapApiKey))
-        autocompleteFragment = supportFragmentManager.findFragmentById(R.id.inputSearch)
-                as AutocompleteSupportFragment
-        autocompleteFragment.setPlaceFields(listOf(Place.Field.ID, Place.Field.NAME, Place.Field.LAT_LNG))
-
-        //  Lorsqu'il fait une recherche
-        autocompleteFragment.setOnPlaceSelectedListener(object : com.google.android.libraries.places.widget.listener.PlaceSelectionListener {
-            override fun onPlaceSelected(place: Place) {
-                Log.i("Map", "Place: ${place.name}, ${place.id}")
-                val location = place.latLng
-                zoomOnMap(location!!, iconPosition)
-            }
-            override fun onError(p0: Status) {
-                Log.i("Map", "Erreur lors de la recherche: $p0")
-                Toast.makeText(this@MapActivity, "Erreur lors de la recherche: $p0", Toast.LENGTH_SHORT).show()
-            }
-
-        })
 
         // Recuperer sa localisation
         val fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
@@ -114,23 +101,35 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback{
                     zoomOnMap(userLocation, iconPosition)
                 }
             }
+
+        // LA RECHERCHE
+        Places.initialize(applicationContext, getString(R.string.mapApiKey))
+        autocompleteFragment = supportFragmentManager.findFragmentById(R.id.inputSearch)
+                as AutocompleteSupportFragment
+        autocompleteFragment.setPlaceFields(listOf(Place.Field.ID, Place.Field.NAME, Place.Field.LAT_LNG))
+
+        //  Lorsqu'il fait une recherche
+        autocompleteFragment.setOnPlaceSelectedListener(object : com.google.android.libraries.places.widget.listener.PlaceSelectionListener {
+            override fun onPlaceSelected(place: Place) {
+                Log.i("Map", "Place: ${place.name}, ${place.id}")
+                val location = place.latLng
+                zoomOnMap(location!!, iconPosition)
+            }
+            override fun onError(p0: Status) {
+                Log.i("Map", "Erreur lors de la recherche: $p0")
+                Toast.makeText(this@MapActivity, "Erreur lors de la recherche: $p0", Toast.LENGTH_SHORT).show()
+            }
+
+        })
+
     }
 
     // Zoom sur la carte
     private fun zoomOnMap(location: LatLng, iconPosition: BitmapDescriptor) {
 
+        val marker = mGooglemap?.addMarker(MarkerOptions().position(location).icon(iconPosition).title(location.toString()))
         mGooglemap?.animateCamera(CameraUpdateFactory.newLatLngZoom(location, 13f))
-        val marker = mGooglemap?.addMarker(MarkerOptions().position(location).icon(iconPosition))
-
-        mGooglemap?.setOnMarkerClickListener { clickedMarker ->
-            if (clickedMarker == marker) {
-                //afficher un toats
-                Toast.makeText(this@MapActivity, "Marker clicked", Toast.LENGTH_SHORT).show()
-                true
-            } else {
-                false
-            }
-        }
+        marker?.showInfoWindow()
     }
 
 
