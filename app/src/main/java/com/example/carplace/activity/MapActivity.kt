@@ -1,12 +1,19 @@
 package com.example.carplace.activity
 
 import android.Manifest
+import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.graphics.Canvas
 import android.location.Location
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
 import android.widget.PopupMenu
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -39,6 +46,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback{
     private var mGooglemap: GoogleMap? = null
     private lateinit var autocompleteFragment: AutocompleteSupportFragment
 
+    @SuppressLint("ServiceCast")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMapBinding.inflate(layoutInflater)
@@ -123,11 +131,33 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback{
 
         })
 
+        // Lorsqu'il clique sur un marker
+//        val MarkerView = LayoutInflater.from(this).inflate(R.layout.activity_info_marker, null)
+//        val distance = MarkerView.findViewById<TextView>(R.id.distance)
+//        val goTo = MarkerView.findViewById<TextView>(R.id.goTo)
+//        val takePlace = MarkerView.findViewById<TextView>(R.id.takePlace)
+//        val cardView = MarkerView.findViewById<View>(R.id.cardView)
+//        val km = MarkerView.findViewById<TextView>(R.id.km)
+//
+//        km.text = "34 km"
+//        val bitmap = Bitmap.createScaledBitmap(viewToBitmap(cardView), cardView.width, cardView.height, false)
+//        val icon = BitmapDescriptorFactory.fromBitmap(bitmap)
+//        mGooglemap?.addMarker(MarkerOptions().position(LatLng(48.856614, 2.3522219)).icon(icon).title("Titre").snippet("popo"))
+
         OnInfoWindowClickListener { marker ->
             val intent = Intent(this, ParkActivity::class.java)
             startActivity(intent)
         }
 
+    }
+
+    private fun viewToBitmap(view: View): Bitmap {
+        view.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED)
+        val bitmap = Bitmap.createBitmap(view.width, view.height, Bitmap.Config.ARGB_8888)
+        val canvas = Canvas(bitmap)
+        view.layout(0, 0, view.measuredWidth, view.measuredHeight)
+        view.draw(canvas)
+        return bitmap
     }
 
     // Zoom sur la carte
