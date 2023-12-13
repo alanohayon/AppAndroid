@@ -50,7 +50,6 @@ class UserAccountActivity : AppCompatActivity() {
 
         val userDetail = binding.userDetail
         val btnLogout = binding.logout
-        val btnGestionUser = binding.btnGestionUser
 
         // Connexion à l'authent de firebase
         auth = Firebase.auth

@@ -59,7 +59,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="40dp"
-            android:drawableLeft="@drawable/goTo"
+            android:drawableLeft="@drawable/gotoicon"
             android:text="S'y rendre"
             android:textColor="@color/black"
             android:textSize="14sp"

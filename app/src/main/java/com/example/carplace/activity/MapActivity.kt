@@ -44,6 +44,10 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback{
         binding = ActivityMapBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // Initialisation de Google Places
+        Places.initialize(applicationContext, getString(R.string.mapApiKey))
+
+
         // NAVIGATION BAR
         val bottomNavView = binding.navBar.bottomNavigationView
         bottomNavView.selectedItemId = R.id.nav_map
