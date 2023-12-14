@@ -20,8 +20,7 @@ class UserAccountActivity : AppCompatActivity() {
     private lateinit var binding: ActivityUserAccountBinding
     // Connexion à l'authent de firebase
     private lateinit var auth: FirebaseAuth
-    private var firebaseDatabase: FirebaseDatabase? = null
-    private var databaseReference: DatabaseReference? = null
+    private lateinit var database: DatabaseReference
 
     override fun onStart() {
         super.onStart()
@@ -45,22 +44,72 @@ class UserAccountActivity : AppCompatActivity() {
         binding = ActivityUserAccountBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        firebaseDatabase = FirebaseDatabase.getInstance()
-        databaseReference = firebaseDatabase?.getReference("users")
+        val databaseUrl = "https://carplace-76342-default-rtdb.europe-west1.firebasedatabase.app"
+        database = Firebase.database(databaseUrl).reference
 
+
+        binding.btnSave.setOnClickListener {
+            val firstName = binding.firstNameEditText.text.toString()
+            val lastName = binding.lastNameEditText.text.toString()
+
+            // Obtention de l'identifiant de l'utilisateur actuellement connecté
+            val userId = FirebaseAuth.getInstance().currentUser?.uid ?: return@setOnClickListener
+
+            // Enregistrement des informations de l'utilisateur dans la base de données
+            // Donc pour la "branche de données" je choisi d'abord de le mettre dans une
+            // branche que je nomme "user" avec child, puis dans la branche de l'id du
+            // l'utilisateur courrant, puis les champs firstName et lastName
+            val newPlaceRef = database.child("places").push()
+            newPlaceRef.child("lat").setValue(48.8471)
+            newPlaceRef.child("lng").setValue(2.2891)
+
+            val new = database.child("places").push()
+            new.child("lat").setValue(48.8475)
+            new.child("lng").setValue(2.2893)
+
+            val op = database.child("places").push()
+            op.child("lat").setValue(48.8654)
+            op.child("lng").setValue(2.2422)
+
+            val az = database.child("places").push()
+            az.child("lat").setValue(48.8965)
+            az.child("lng").setValue(2.2244)
+
+            val re = database.child("places").push()
+            re.child("lat").setValue(48.8525)
+            re.child("lng").setValue(2.2765)
+
+            val bb = database.child("places").push()
+            bb.child("lat").setValue(48.7543)
+            bb.child("lng").setValue(2.999)
+
+            val mm = database.child("places").push()
+            mm.child("lat").setValue(48.6454)
+            mm.child("lng").setValue(2.322)
+
+//            database.child("places").child("id").child("lat").setValue(48.8566)
+//            database.child("places").child("id").child("lng").setValue(48.8566)
+
+            Toast.makeText(this, "Informations enregistrées", Toast.LENGTH_SHORT).show()
+            finish()
+        }
+
+//        firebaseDatabase = FirebaseDatabase.getInstance()
+//        databaseReference = firebaseDatabase?.getReference("users")
+//
         val userDetail = binding.userDetail
         val btnLogout = binding.logout
         val btnGestionUser = binding.btnGestionUser
 
-        // Connexion à l'authent de firebase
+//        // Connexion à l'authent de firebase
         auth = Firebase.auth
         val currentUser = auth.currentUser
         userDetail.text = currentUser?.email
-        // recuperer les info du user
-        binding.btnSave.setOnClickListener {
-
-
-            Toast.makeText(this, "1", Toast.LENGTH_LONG).show()
+//        // recuperer les info du user
+//        binding.btnSave.setOnClickListener {
+//
+//
+//            Toast.makeText(this, "1", Toast.LENGTH_LONG).show()
 
 //            val userId = FirebaseAuth.getInstance().currentUser!!.uid
 //            val firstName = binding.firstNameEditText.text.toString()
@@ -70,22 +119,22 @@ class UserAccountActivity : AppCompatActivity() {
 //            val date = "11/03/2002"
 //            val password = binding.passwordEditText.text.toString()
 //            val city = binding.cityEditText.text.toString()
+//
+//            val user = User("userId", "firstName", "lastName", "email", "password", "date", 123456, "city")
+//
+//            Toast.makeText(this, "2", Toast.LENGTH_LONG).show()
+//            databaseReference?.child("212")?.setValue("testout")
+////                .addOnCompleteListener {
+////                    Toast.makeText(this, "Data inserted successfully", Toast.LENGTH_LONG).show()
+////                }.addOnFailureListener { err ->
+////                    Toast.makeText(this, "Error ${err.message}", Toast.LENGTH_LONG).show()
+////                }
+//
+//            Toast.makeText(this, "3", Toast.LENGTH_LONG).show()
+//
 
-            val user = User("userId", "firstName", "lastName", "email", "password", "date", 123456, "city")
 
-            Toast.makeText(this, "2", Toast.LENGTH_LONG).show()
-            databaseReference?.child("212")?.setValue("testout")
-//                .addOnCompleteListener {
-//                    Toast.makeText(this, "Data inserted successfully", Toast.LENGTH_LONG).show()
-//                }.addOnFailureListener { err ->
-//                    Toast.makeText(this, "Error ${err.message}", Toast.LENGTH_LONG).show()
-//                }
-
-            Toast.makeText(this, "3", Toast.LENGTH_LONG).show()
-
-
-
-        }
+//        }
 
 
         // si il click sur deconnexion alors la variable session du user sera supprimer et il sera ramené vers la page login

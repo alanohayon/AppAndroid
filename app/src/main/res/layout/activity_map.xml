@@ -21,11 +21,11 @@
 
     <ImageButton
         android:id="@+id/map_option_btn"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="20dp"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="17dp"
         android:layout_marginEnd="20dp"
-        android:background="@color/quantum_grey"
+        android:backgroundTint="#00FFFFFF"
         android:contentDescription="menu_carte"
         android:scaleType="fitXY"
         android:src="@drawable/map_options"
@@ -54,6 +54,18 @@
             />
 
     </androidx.cardview.widget.CardView>
+
+    <Button
+        android:id="@+id/btnMyLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="270dp"
+        android:layout_marginTop="630dp"
+        android:text="Ma Position"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/map_option_btn" />
 
     <include
         android:id="@+id/nav_bar"

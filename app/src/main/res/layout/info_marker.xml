@@ -1,17 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 >
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
-        android:layout_width="250dp"
+        android:layout_width="0dp"
         android:layout_height="150dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="400dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="200dp"
         app:cardCornerRadius="10dp"
         app:cardElevation="10dp"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -30,15 +36,34 @@
 
         <TextView
 
-            android:id="@+id/distance"
-            android:layout_width="100dp"
-            android:layout_height="25dp"
+            android:id="@+id/adress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginStart="40dp"
             android:layout_marginTop="10dp"
-            android:text="Distance km"
+            android:text=""
             android:textColor="@color/black"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:textStyle="bold" />
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="50dp"
+            android:src="@drawable/distance" />
+
+        <TextView
+
+            android:id="@+id/distance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="50dp"
+            android:text="EZCNNZE DEZDZD DZDE"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
 
         <TextView
             android:id="@+id/km"
@@ -54,22 +79,23 @@
 
         <Button
             android:id="@+id/goTo"
-            android:layout_width="150dp"
+            android:layout_width="110dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="90dp"
             android:drawableLeft="@drawable/go_to"
-            android:text="S'y rendre"
+            android:text="Aller"
             android:textColor="@color/black"
             android:textSize="14sp"
             android:textStyle="bold" />
 
         <Button
             android:id="@+id/takePlace"
-            android:layout_width="120dp"
+            android:layout_width="110dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="80dp"
+            android:layout_marginStart="180dp"
             android:layout_marginTop="90dp"
+            android:backgroundTint="#E6CF7A"
             android:text="Reserver"
             android:textColor="@color/black"
             android:textSize="14sp"
