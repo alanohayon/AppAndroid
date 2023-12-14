@@ -4,27 +4,27 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.content.IntentSender
 import android.content.pm.PackageManager
-import android.graphics.Bitmap
-import android.graphics.Canvas
-import android.location.Address
+
 import android.location.Geocoder
 import android.location.Location
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
+
 import android.view.ViewGroup
 import android.widget.PopupMenu
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import com.example.carplace.activity.databinding.ActivityMapBinding
 import com.example.carplace.activity.databinding.InfoMarkerBinding
+import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.common.api.Status
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationServices
+import com.google.android.gms.location.LocationSettingsRequest
+import com.google.android.gms.location.SettingsClient
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener
@@ -41,6 +41,7 @@ import com.google.android.gms.tasks.OnTokenCanceledListener
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -51,6 +52,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.time.LocalDateTime
 import java.util.Locale
 
 
@@ -62,6 +64,8 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback{
     private var mGooglemap: GoogleMap? = null
     private lateinit var autocompleteFragment: AutocompleteSupportFragment
     private lateinit var database: DatabaseReference
+    private val userId = FirebaseAuth.getInstance().currentUser?.uid
+
     @SuppressLint("ServiceCast")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -93,7 +97,21 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback{
                 infoMarkerBinding.adress.text = clickedMarker.snippet
 
                 infoMarkerBinding.takePlace.setOnClickListener {
-                    Toast.makeText(this@MapActivity, "clic sur btn", Toast.LENGTH_SHORT).show()
+                    // renvoyer vers la page ParkActivity
+                    val id = clickedMarker.title
+                    // recuper la date et l'heure actuel
+                    val currentDateTime = LocalDateTime.now()
+                    Toast.makeText(this@MapActivity, "Votre Position", Toast.LENGTH_SHORT).show()
+                    if (id != null) {
+                        database.child(id).child("userId").setValue(userId)
+                        database.child(id).child("status").setValue("used")
+                        database.child(id).child("date").setValue(currentDateTime.toString())
+
+                    }
+
+                    val intent = Intent(this, ParkActivity::class.java)
+                    startActivity(intent)
+
                     // Gestionnaire pour le bouton "S'y rendre"
                 }
 
@@ -148,8 +166,8 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback{
             override fun onPlaceSelected(place: Place) {
                 Log.i("Map", "Place: ${place.name}, ${place.id}")
                 val location = place.latLng
-                val marker = mGooglemap?.addMarker(MarkerOptions().position(location!!).icon(iconPosition).title(place.name).snippet(place.address))
-                zoomOnMap(location!!, iconPosition)
+//                val marker = mGooglemap?.addMarker(MarkerOptions().position(location!!).icon(iconPosition).title(place.name).snippet(place.address))
+                mGooglemap?.animateCamera(CameraUpdateFactory.newLatLngZoom(location, 16f))
             }
             override fun onError(p0: Status) {
                 Log.i("Map", "Erreur lors de la recherche: $p0")
@@ -176,7 +194,6 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback{
                 }
 
             }
-            Toast.makeText(this, "clic sur btn", Toast.LENGTH_SHORT).show()
             // Gestionnaire pour le bouton "S'y rendre"
         }
 
@@ -186,7 +203,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback{
     // Zoom sur la carte
     private fun zoomOnMap(location: LatLng, iconPosition: BitmapDescriptor) {
 
-        mGooglemap?.animateCamera(CameraUpdateFactory.newLatLngZoom(location, 13f))
+        mGooglemap?.animateCamera(CameraUpdateFactory.newLatLngZoom(location, 14f))
 
 
     }
@@ -198,17 +215,17 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback{
                     for (placeSnapshot in dataSnapshot.children) {
                         val lat = placeSnapshot.child("lat").getValue(Double::class.java)
                         val lng = placeSnapshot.child("lng").getValue(Double::class.java)
-
+                        val id = placeSnapshot.key
+//                        Toast.makeText(applicationContext, "$id", Toast.LENGTH_LONG).show()
                         // Utilisez ici les informations de la place
                         // Par exemple, affichez-les dans un Toast ou placez un marker sur une carte
                         if (lat != null && lng != null) {
                             val loca = LatLng(lat, lng)
                             getAddressFromLatLng(loca) { address ->
-                                mGooglemap?.addMarker(MarkerOptions().position(LatLng(lat, lng)).title("titi").snippet(address))
+
+                                mGooglemap?.addMarker(MarkerOptions().position(LatLng(lat, lng)).title(id).snippet(address))
 
                             }
-                            Toast.makeText(applicationContext, "$lat, $lng", Toast.LENGTH_LONG).show()
-                            // Ajoutez des markers sur la carte si nécessaire
                         }
                     }
                 }
@@ -239,6 +256,37 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback{
             } else {
                 val userLocation = LatLng(location.latitude, location.longitude)
                 callback(userLocation)
+            }
+        }
+    }
+
+    companion object {
+        private const val REQUEST_CHECK_SETTINGS = 1001
+    }
+    private fun checkLocationSettings() {
+        val locationRequest = LocationRequest.create().apply {
+            priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+        }
+
+        val builder = LocationSettingsRequest.Builder().addLocationRequest(locationRequest)
+        val settingsClient: SettingsClient = LocationServices.getSettingsClient(this)
+        val locationSettingsResponseTask = settingsClient.checkLocationSettings(builder.build())
+
+        locationSettingsResponseTask.addOnSuccessListener {
+            // Les paramètres de localisation sont satisfaisants, et on peut initialiser les mises à jour de localisation ici
+            return@addOnSuccessListener
+        }
+
+        locationSettingsResponseTask.addOnFailureListener { exception ->
+            if (exception is ResolvableApiException) {
+                // La localisation n'est pas activée, mais on peut demander à l'utilisateur de l'activer
+
+                try {
+                    exception.startResolutionForResult(this@MapActivity, REQUEST_CHECK_SETTINGS)
+                } catch (sendEx: IntentSender.SendIntentException) {
+                    Toast.makeText(this@MapActivity, "Veuillez activer votre localisation", Toast.LENGTH_SHORT).show()
+                    // Ignorer l'erreur ou la traiter ici
+                }
             }
         }
     }

@@ -1,7 +1,11 @@
 package com.example.carplace.model
 
-data class Place(
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
+
+class Place(
     val distance: String,
     val goTo: String,
     val takePlace: String
+
 )
