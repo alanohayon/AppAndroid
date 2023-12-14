@@ -73,34 +73,6 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback{
         //recuperer une places
         getMarkerBdd()
 
-//        database.addValueEventListener(object : ValueEventListener {
-//            override fun onDataChange(dataSnapshot: DataSnapshot) {
-//                if (dataSnapshot.exists()) {
-//                    for (placeSnapshot in dataSnapshot.children) {
-//                        val lat = placeSnapshot.child("lat").getValue(Double::class.java)
-//                        val lng = placeSnapshot.child("lng").getValue(Double::class.java)
-//
-//                        // Utilisez ici les informations de la place
-//                        // Par exemple, affichez-les dans un Toast ou placez un marker sur une carte
-//                        if (lat != null && lng != null) {
-//                            val loca = LatLng(lat, lng)
-//                            getAddressFromLatLng(loca) { address ->
-//                                mGooglemap?.addMarker(MarkerOptions().position(LatLng(lat, lng)).title("titi").snippet(address))
-//
-//                            }
-//                            Toast.makeText(applicationContext, "$lat, $lng", Toast.LENGTH_LONG).show()
-//                            // Ajoutez des markers sur la carte si nécessaire
-//                        }
-//                    }
-//                }
-//            }
-//
-//            override fun onCancelled(databaseError: DatabaseError) {
-//                // Gérez les erreurs ici
-//                Toast.makeText(applicationContext, "Erreur: ${databaseError.message}", Toast.LENGTH_SHORT).show()
-//            }
-//        })
-
         // NAVIGATION BAR
         val bottomNavView = binding.navBar.bottomNavigationView
         bottomNavView.selectedItemId = R.id.nav_map

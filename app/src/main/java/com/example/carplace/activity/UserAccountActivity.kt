@@ -63,30 +63,6 @@ class UserAccountActivity : AppCompatActivity() {
             newPlaceRef.child("lat").setValue(48.8471)
             newPlaceRef.child("lng").setValue(2.2891)
 
-            val new = database.child("places").push()
-            new.child("lat").setValue(48.8475)
-            new.child("lng").setValue(2.2893)
-
-            val op = database.child("places").push()
-            op.child("lat").setValue(48.8654)
-            op.child("lng").setValue(2.2422)
-
-            val az = database.child("places").push()
-            az.child("lat").setValue(48.8965)
-            az.child("lng").setValue(2.2244)
-
-            val re = database.child("places").push()
-            re.child("lat").setValue(48.8525)
-            re.child("lng").setValue(2.2765)
-
-            val bb = database.child("places").push()
-            bb.child("lat").setValue(48.7543)
-            bb.child("lng").setValue(2.999)
-
-            val mm = database.child("places").push()
-            mm.child("lat").setValue(48.6454)
-            mm.child("lng").setValue(2.322)
-
 //            database.child("places").child("id").child("lat").setValue(48.8566)
 //            database.child("places").child("id").child("lng").setValue(48.8566)
 
