@@ -11,7 +11,8 @@ import android.location.Geocoder
 import android.location.Location
 import android.os.Bundle
 import android.util.Log
-
+import com.google.maps.DirectionsApi
+import com.google.maps.GeoApiContext
 import android.view.ViewGroup
 import android.widget.PopupMenu
 import android.widget.Toast
@@ -19,8 +20,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import com.example.carplace.activity.databinding.ActivityMapBinding
 import com.example.carplace.activity.databinding.InfoMarkerBinding
+import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.common.api.Status
+import com.google.android.gms.common.internal.Objects.ToStringHelper
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.LocationSettingsRequest
@@ -35,6 +38,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.model.PolylineOptions
 import com.google.android.gms.tasks.CancellationToken
 import com.google.android.gms.tasks.CancellationTokenSource
 import com.google.android.gms.tasks.OnTokenCanceledListener
@@ -48,10 +52,13 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import com.google.maps.android.PolyUtil
+import com.google.maps.model.TravelMode
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.io.IOException
 import java.time.LocalDateTime
 import java.util.Locale
 
@@ -73,9 +80,12 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback{
         setContentView(binding.root)
         var markerUser: Marker? = null
         val databaseUrl = "https://carplace-76342-default-rtdb.europe-west1.firebasedatabase.app"
-        database = Firebase.database(databaseUrl).getReference("places")
+        database = Firebase.database(databaseUrl).reference
         //recuperer une places
         getMarkerBdd()
+
+//        val latLngOrigin = LatLng(48.7343, 2.5433) // Ayala
+//        val latLngDestination = LatLng(48.7393,2.5493) // SM City
 
         // NAVIGATION BAR
         val bottomNavView = binding.navBar.bottomNavigationView
@@ -89,6 +99,14 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback{
             val infoMarkerBinding = InfoMarkerBinding.inflate(layoutInflater)
             val rootView = findViewById<ViewGroup>(android.R.id.content)
 
+//            mGooglemap?.addMarker(MarkerOptions().position(latLngOrigin).title("Ayala"))
+//            mGooglemap?.addMarker(MarkerOptions().position(latLngDestination).title("SM City"))
+//            mGooglemap?.moveCamera(CameraUpdateFactory.newLatLngZoom(latLngOrigin, 14.5f))
+
+//            val apiKey = getString(R.string.mapApiKey)
+//            drawRoute(mGooglemap!!, latLngOrigin, latLngDestination, apiKey)
+
+
             // Click sur un marker
             mGooglemap?.setOnMarkerClickListener {clickedMarker ->
 
@@ -96,16 +114,21 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback{
 
                 infoMarkerBinding.adress.text = clickedMarker.snippet
 
+                // Si il click sur le bouton "reserver"
                 infoMarkerBinding.takePlace.setOnClickListener {
                     // renvoyer vers la page ParkActivity
                     val id = clickedMarker.title
                     // recuper la date et l'heure actuel
                     val currentDateTime = LocalDateTime.now()
-                    Toast.makeText(this@MapActivity, "Votre Position", Toast.LENGTH_SHORT).show()
+//                    Toast.makeText(this@MapActivity, "Vous avez reserver une place", Toast.LENGTH_SHORT).show()
                     if (id != null) {
-                        database.child(id).child("userId").setValue(userId)
-                        database.child(id).child("status").setValue("used")
-                        database.child(id).child("date").setValue(currentDateTime.toString())
+                        database.child("places").child(id).child("userId").setValue(userId)
+                        database.child("places").child(id).child("status").setValue("used")
+                        database.child("places").child(id).child("date").setValue(currentDateTime.toString())
+                        if (userId != null) {
+                            database.child("users").child(userId).child("place").setValue(id)
+                        }
+
 
                     }
 
@@ -121,6 +144,31 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback{
             mGooglemap?.setOnMapClickListener {
                 // Supprimez la vue infoMarkerBinding de la vue racine
                 rootView.removeView(infoMarkerBinding.root)
+            }
+        }
+
+        binding.btnAddPlace.setOnClickListener {
+           // recuperer laddrss
+
+            getUserLocation { userLocation ->
+                val userLoca = LatLng(userLocation.latitude, userLocation.longitude)
+                getAddressFromLatLng(userLoca) { address ->
+
+                    // ajouter la place à la bdd
+                    val newPlaceRef = database.push()
+                    newPlaceRef.child("places").child("lat").setValue(userLocation.latitude)
+                    newPlaceRef.child("places").child("lng").setValue(userLocation.longitude)
+                    newPlaceRef.child("places").child("name").setValue(address)
+                    newPlaceRef.child("places").child("status").setValue("free")
+                    newPlaceRef.child("places").child("date").setValue("")
+
+
+
+                    Toast.makeText(this, "Place ajoutée", Toast.LENGTH_SHORT).show()
+
+                    val intent = Intent(this, MapActivity::class.java)
+                    startActivity(intent)
+                }
             }
         }
 
@@ -176,11 +224,16 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback{
 
         })
 
-        OnInfoWindowClickListener { marker ->
-            val intent = Intent(this, ParkActivity::class.java)
-            startActivity(intent)
-        }
+//        OnInfoWindowClickListener { marker ->
+//            val intent = Intent(this, ParkActivity::class.java)
+//            val newPlaceRef = database.child("places").push()
+//            newPlaceRef.child("lat").setValue(48.8471)
+//            newPlaceRef.child("lng").setValue(2.2891)
+//
+//            startActivity(intent)
+//        }
 
+        // Lorsqu'il clic pour revenir a sa position
         binding.btnMyLocation.setOnClickListener {
             markerUser?.remove()
             getUserLocation { userLocation ->
@@ -208,25 +261,74 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback{
 
     }
 
+    fun drawRoute(map: GoogleMap, origin: LatLng, destination: LatLng, apiKey: String) {
+        val context = GeoApiContext.Builder()
+            .apiKey(apiKey)
+            .build()
+
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val results = DirectionsApi.newRequest(context)
+                    .mode(TravelMode.DRIVING) // ou autre mode de transport
+                    .origin(com.google.maps.model.LatLng(origin.latitude, origin.longitude))
+                    .destination(com.google.maps.model.LatLng(destination.latitude, destination.longitude))
+                    .await()
+
+                withContext(Dispatchers.Main) {
+                    if (results.routes.isNotEmpty()) {
+                        val route = results.routes.first()
+                        val decodedPath = PolyUtil.decode(route.overviewPolyline.encodedPath)
+
+                        map.addPolyline(PolylineOptions().addAll(decodedPath))
+                    }
+                }
+            } catch (e: ApiException) {
+                Log.e("MapsAPI", "ApiException: ${e.message}")
+            } catch (e: InterruptedException) {
+                Log.e("MapsAPI", "InterruptedException: ${e.message}")
+            } catch (e: IOException) {
+                Log.e("MapsAPI", "IOException: ${e.message}")
+            } catch (e: Exception) {
+                Log.e("MapsAPI", "Exception: ${e.message}")
+            }
+        }
+    }
+
     private fun getMarkerBdd(){
-        database.addValueEventListener(object : ValueEventListener {
+        database.child("places").addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 if (dataSnapshot.exists()) {
                     for (placeSnapshot in dataSnapshot.children) {
                         val lat = placeSnapshot.child("lat").getValue(Double::class.java)
                         val lng = placeSnapshot.child("lng").getValue(Double::class.java)
+                        val status = placeSnapshot.child("status").getValue(String::class.java)
+                        val uId = placeSnapshot.child("userId").getValue(String::class.java)
                         val id = placeSnapshot.key
-//                        Toast.makeText(applicationContext, "$id", Toast.LENGTH_LONG).show()
-                        // Utilisez ici les informations de la place
-                        // Par exemple, affichez-les dans un Toast ou placez un marker sur une carte
-                        if (lat != null && lng != null) {
-                            val loca = LatLng(lat, lng)
-                            getAddressFromLatLng(loca) { address ->
+                        if (status != null) {
+                            if (status == "used" && uId == userId){
+                                Toast.makeText(this@MapActivity, "Vous avez une place", Toast.LENGTH_LONG).show()
+                                if (lat != null && lng != null) {
+                                    val loca = LatLng(lat, lng)
+                                    getAddressFromLatLng(loca) { address ->
 
-                                mGooglemap?.addMarker(MarkerOptions().position(LatLng(lat, lng)).title(id).snippet(address))
+                                        mGooglemap?.addMarker(MarkerOptions().position(LatLng(lat, lng)).title(id).snippet(address).icon(BitmapDescriptorFactory.fromResource(R.drawable.place_user)))
 
+                                    }
+                                }
                             }
+                            if (status != "used"){
+                                if (lat != null && lng != null) {
+                                    val loca = LatLng(lat, lng)
+                                    getAddressFromLatLng(loca) { address ->
+
+                                        mGooglemap?.addMarker(MarkerOptions().position(LatLng(lat, lng)).title(id).snippet(address))
+
+                                    }
+                                }
+                            }
+
                         }
+
                     }
                 }
             }
@@ -239,6 +341,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback{
     }
 
     private fun getUserLocation(callback: (LatLng) -> Unit) {
+        checkLocationSettings()
         val fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // Gérer le cas où les permissions ne sont pas accordées

@@ -46,7 +46,8 @@ dependencies {
     implementation("com.google.firebase:firebase-database-ktx:20.3.0")
     implementation("com.google.android.gms:play-services-maps:18.2.0")
     implementation("com.google.android.gms:play-services-location:21.0.1")
-
+    implementation("com.google.maps.android:android-maps-utils:0.5")
+    implementation("com.google.maps:google-maps-services:0.17.0")
     implementation("com.google.android.libraries.places:places:3.3.0")
 
 

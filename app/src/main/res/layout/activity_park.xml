@@ -10,4 +10,14 @@
         android:id="@+id/nav_bar"
         layout="@layout/nav_bar" />
 
+    <LinearLayout
+        android:id="@+id/linear_layout_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@id/nav_bar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

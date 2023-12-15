@@ -1,0 +1,6 @@
+<!-- edittext_border.xml dans le dossier drawable -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="#FFFFFF"/> <!-- Couleur de fond -->
+    <stroke android:width="1dp" android:color="#000000"/> <!-- Couleur de la bordure -->
+    <corners android:radius="4dp"/> <!-- Arrondissement des coins -->
+</shape>

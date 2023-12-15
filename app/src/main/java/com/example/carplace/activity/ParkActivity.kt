@@ -36,17 +36,39 @@ class ParkActivity : AppCompatActivity() {
         binding = ActivityParkBinding.inflate(layoutInflater)
         setContentView(binding.root)
         val databaseUrl = "https://carplace-76342-default-rtdb.europe-west1.firebasedatabase.app"
-        database = Firebase.database(databaseUrl).getReference("places")
+        database = Firebase.database(databaseUrl).reference
 
         getMarkerByIdUser()
+
 
         // NAVIGATION BAR
         val bottomNavView = binding.navBar.bottomNavigationView
         bottomNavView.selectedItemId = R.id.nav_park
         Utils.setupMenu(bottomNavView)
     }
-    private fun getMarkerByIdUser() {
-        database.addValueEventListener(object : ValueEventListener {
+
+    private fun getMarkerByIdUser(){
+        database.child("users").addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    for (userSnapshot in dataSnapshot.children) {
+                        val id = userSnapshot.key
+                        val firstName = userSnapshot.child("firstName").getValue(String::class.java)
+                        val lastName = userSnapshot.child("lastName").getValue(String::class.java)
+                        if (id == userId) {
+                            getMarkerByPlace()
+                        }
+                    }
+                }
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                Toast.makeText(applicationContext, "Erreur: ${databaseError.message}", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+    private fun getMarkerByPlace() {
+        database.child("places").addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 val inflater = layoutInflater
                 if (dataSnapshot.exists()) {
@@ -72,10 +94,21 @@ class ParkActivity : AppCompatActivity() {
 
 
                             btnLeave.setOnClickListener {
-                                database.child(placeSnapshot.key.toString()).child("status").setValue("free")
+                                database.child("places").child(placeSnapshot.key.toString()).child("status").setValue("free")
+                                database.child("places").child(placeSnapshot.key.toString()).child("userId").setValue("")
+
+                                if (userId != null) {
+//                                    database.child("users").child(userId).child("status").setValue("free")
+//                                    database.child("users").child(userId).child("status").setValue("")
+
+                                }
+
                                 Toast.makeText(this@ParkActivity, "Vous avez quitté votre place", Toast.LENGTH_LONG).show()
                                 // Recharger les données ou mettre à jour l'UI ici au lieu de redémarrer l'activité
-                                getMarkerByIdUser() // Appel récursif pour rafraîchir les données
+//                                getMarkerByIdUser() // Appel récursif pour rafraîchir les données
+//                                renvoyer vers la meme page
+                                val intent = Intent(this@ParkActivity, ParkActivity::class.java)
+                                startActivity(intent)
                             }
 
                             binding.root.addView(placeUsedView)

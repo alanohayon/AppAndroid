@@ -83,16 +83,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/btnGestionUser"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:text="Gestion user"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.815"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/logout" />
 
     <EditText
         android:id="@+id/firstNameEditText"
@@ -202,7 +192,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
         android:layout_marginTop="40dp"
-        android:text="Info User"
+        android:text="Mon Profil"
         android:textAlignment="viewStart"
         android:textColor="#302E2E"
         android:textSize="34sp"
@@ -210,7 +200,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-        <include
+    <include
         android:id="@+id/nav_bar"
         layout="@layout/nav_bar"
         app:layout_constraintTop_toTopOf="parent" />

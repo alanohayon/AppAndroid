@@ -6,6 +6,99 @@
     android:layout_height="match_parent"
     tools:context=".CarActivity">
 
+
+    <!-- Parent (Mother) Layout with grey background -->
+    <LinearLayout
+        android:id="@+id/mother_layout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:background="@drawable/border_mother_layout"
+        android:padding="16dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <!-- Child (Daughter) Layout with blue background -->
+        <LinearLayout
+            android:id="@+id/daughter_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/border_daughter_layout"
+            android:orientation="vertical"
+            android:padding="8dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="Informations de mon véhicule"
+                android:fontFamily="sans-serif-condensed"
+                android:textAppearance="@style/TextAppearance.AppCompat.Headline"/>
+            <Button
+                android:id="@+id/btnAddCarInfos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="MODIFIER"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/button_background"
+                android:padding="12dp"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/black"
+                android:elevation="4dp"
+                android:stateListAnimator="@null"/>
+
+
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/daughter_layout2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/border_daughter_layout"
+            android:orientation="vertical"
+            android:padding="8dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="300dp"
+                android:src="@drawable/carcar"
+                android:layout_gravity="center_horizontal"/>
+
+            <TextView
+                android:id="@+id/textModel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Modèles : ?"
+                android:textSize="25sp"
+                android:layout_gravity="center_horizontal"/>
+
+            <TextView
+                android:id="@+id/textMarque"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Marque : ?"
+                android:textSize="25sp"
+                android:layout_gravity="center_horizontal"/>
+
+            <TextView
+                android:id="@+id/textType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Type : ? (Essence/Electrique)"
+                android:textSize="25sp"
+                android:layout_gravity="center_horizontal"/>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
     <include
         android:id="@+id/nav_bar"
         layout="@layout/nav_bar" />

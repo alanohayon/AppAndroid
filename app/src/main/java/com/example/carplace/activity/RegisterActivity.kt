@@ -9,6 +9,7 @@ import android.widget.Toast
 import com.example.carplace.activity.databinding.ActivityRegisterBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 
 class RegisterActivity : AppCompatActivity() {
@@ -40,6 +41,11 @@ class RegisterActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        // NAVIGATION BAR
+        val bottomNavView = binding.navBar.bottomNavigationView
+        bottomNavView.selectedItemId = R.id.nav_map
+        Utils.setupMenu(bottomNavView)
+
         // Initialisez le binding
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -65,49 +71,45 @@ class RegisterActivity : AppCompatActivity() {
 
             progressBar.visibility = View.VISIBLE
             val nom = inputName.text.toString()
-            val pren = inputFirstName.text.toString()
+            val prenom = inputFirstName.text.toString()
             val email = inputEmail.text.toString()
             val mdp = inputPwd.text.toString()
-            val mdpConf = inputPwdConf.text.toString()
-            val date = inputDate.text.toString()
+            val dateNaissance = inputDate.text.toString()
 
-            if (email.isEmpty() || mdp.isEmpty() || mdpConf.isEmpty()) {
+            if (email.isEmpty() || mdp.isEmpty()) {
                 Toast.makeText(baseContext, "Veuillez remplir les champs obligatoires", Toast.LENGTH_SHORT).show()
+                progressBar.visibility = View.GONE
                 return@setOnClickListener
             }
 
-            //  Ajout d'un nouveau user si il n'existe pas dans firebase
+            // Ajout d'un nouveau user dans Firebase Authentication
             auth.createUserWithEmailAndPassword(email, mdp)
-                .addOnCompleteListener() { task ->
+                .addOnCompleteListener(this) { task ->
                     progressBar.visibility = View.GONE
-                    //success, connexion reussie afficher log/message
                     if (task.isSuccessful) {
-                        Log.d("SUCCESS", "createUserWithEmail:success")
+                        // Utilisateur créé avec succès
+                        val userId = auth.currentUser?.uid
+                        if (userId != null) {
+                            val databaseUrl = "https://carplace-76342-default-rtdb.europe-west1.firebasedatabase.app"
+                            val database = Firebase.database(databaseUrl).reference
 
-                        Toast.makeText(
-                            this@RegisterActivity,
-                            "Compte crée 👌.",
-                            Toast.LENGTH_SHORT,
-                        ).show()
+                            // Enregistrer les informations supplémentaires de l'utilisateur
+                            database.child("users").child(userId).child("nom").setValue(nom)
+                            database.child("users").child(userId).child("prenom").setValue(prenom)
+                            database.child("users").child(userId).child("dateNaissance").setValue(dateNaissance)
 
-                        val intent = Intent(applicationContext, LoginActivity::class.java)
-                        startActivity(intent)
-                        finish()
-
+                            Toast.makeText(this, "Compte créé avec succès", Toast.LENGTH_SHORT).show()
+                            val intent = Intent(applicationContext, LoginActivity::class.java)
+                            startActivity(intent)
+                            finish()
+                        }
                     } else {
-                        //echec, afficher log/message
-                        Log.w("ECHEC", "createUserWithEmail:failure", task.exception)
-
-                        Toast.makeText(
-                            this@RegisterActivity,
-                            "Echec de la creation 😕.",
-                            Toast.LENGTH_SHORT,
-                        ).show()
-
+                        // Échec de la création du compte
+                        Toast.makeText(this, "Échec de la création du compte", Toast.LENGTH_SHORT).show()
                     }
                 }
-
         }
+
 
         //  Aller sur la page connexion
         btnGoSignIn.setOnClickListener {

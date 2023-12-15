@@ -50,7 +50,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="40dp"
             android:text="Début: "
             android:textColor="#121010"
             android:textSize="20sp"
@@ -61,8 +61,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="70dp"
-            android:layout_marginTop="35dp"
-            android:text=" ADBZUAIBD424R 34 F3RF3"
+            android:layout_marginTop="45dp"
+            android:text=""
             android:textSize="16sp" />
 
         <Button

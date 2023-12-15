@@ -199,18 +199,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/dateN" />
 
-<!--    <LinearLayout-->
-<!--        android:id="@+id/buttonContainer"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:orientation="horizontal"-->
-<!--        tools:layout_editor_absoluteX="0dp"-->
-<!--        tools:layout_editor_absoluteY="471dp">-->
+    <!--    <LinearLayout-->
+    <!--        android:id="@+id/buttonContainer"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:orientation="horizontal"-->
+    <!--        tools:layout_editor_absoluteX="0dp"-->
+    <!--        tools:layout_editor_absoluteY="471dp">-->
 
-<!--        &lt;!&ndash; Bouton S'inscrire &ndash;&gt;-->
+    <!--        &lt;!&ndash; Bouton S'inscrire &ndash;&gt;-->
 
-<!--        &lt;!&ndash; Bouton Se connecter &ndash;&gt;-->
-<!--    </LinearLayout>-->
+    <!--        &lt;!&ndash; Bouton Se connecter &ndash;&gt;-->
+    <!--    </LinearLayout>-->
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -245,6 +245,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <include
+        android:id="@+id/nav_bar"
+        layout="@layout/nav_bar"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
