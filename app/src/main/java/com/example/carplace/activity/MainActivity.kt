@@ -65,7 +65,6 @@ class MainActivity : AppCompatActivity() {
 
         //  Variable des btn
         val btnGoSignIn = binding.btnGoSignIn
-        val btnGoSignUp = binding.btnGoSignUp
 
         //  Click sur connexion
         btnGoSignIn.setOnClickListener {
@@ -77,12 +76,12 @@ class MainActivity : AppCompatActivity() {
         }
 
         //  Click sur inscription
-        btnGoSignUp.setOnClickListener {
-            //redirection à la page inscription
-            val intent = Intent(applicationContext, RegisterActivity::class.java)
-            startActivity(intent)
-            finish()
-            Log.d("click register", "click sur btn inscription")
-        }
+//        btnGoSignUp.setOnClickListener {
+//            //redirection à la page inscription
+//            val intent = Intent(applicationContext, RegisterActivity::class.java)
+//            startActivity(intent)
+//            finish()
+//            Log.d("click register", "click sur btn inscription")
+//        }
     }
 }

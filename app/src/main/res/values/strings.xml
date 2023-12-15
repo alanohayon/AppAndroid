@@ -20,7 +20,7 @@
 
     <!--connexion-->
     <string name="connexionView">Connexion</string>
-    <string name="seConnecterBtn">Se connecter</string>
+    <string name="seConnecterBtn">Se connecter/ S\'inscrire</string>
 
     <!--inscription-->
     <string name="inscriptioneView">Inscription</string>
@@ -51,7 +51,7 @@
     <string name="click_to_login">Click to login</string>
 
     <string name="btn_deconnexion">Deconnexion</string>
-    <string name="click_to_register">click to register</string>
+    <string name="click_to_register">S\'enregistrer</string>
 
     <!--    Navbar-->
 

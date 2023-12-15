@@ -84,7 +84,7 @@
         android:layout_height="56dp"
         android:layout_marginTop="636dp"
         android:layout_marginEnd="32dp"
-        android:backgroundTint="#BAD5163C"
+        android:backgroundTint="#BA393435"
         android:text="Ajouter une place"
         android:textColorHighlight="#268050"
         app:layout_constraintEnd_toStartOf="@+id/btnMyLocation"

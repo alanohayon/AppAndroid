@@ -40,15 +40,15 @@ class RegisterActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        binding = ActivityRegisterBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         // NAVIGATION BAR
         val bottomNavView = binding.navBar.bottomNavigationView
         bottomNavView.selectedItemId = R.id.nav_map
         Utils.setupMenu(bottomNavView)
 
         // Initialisez le binding
-        binding = ActivityRegisterBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+
 
         val btnGoSignIn = binding.btnGoSignIn
         val btnSignUp = binding.btnSignUp
@@ -66,57 +66,57 @@ class RegisterActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
-
-        btnSignUp.setOnClickListener {
-
-            progressBar.visibility = View.VISIBLE
-            val nom = inputName.text.toString()
-            val prenom = inputFirstName.text.toString()
-            val email = inputEmail.text.toString()
-            val mdp = inputPwd.text.toString()
-            val dateNaissance = inputDate.text.toString()
-
-            if (email.isEmpty() || mdp.isEmpty()) {
-                Toast.makeText(baseContext, "Veuillez remplir les champs obligatoires", Toast.LENGTH_SHORT).show()
-                progressBar.visibility = View.GONE
-                return@setOnClickListener
-            }
-
-            // Ajout d'un nouveau user dans Firebase Authentication
-            auth.createUserWithEmailAndPassword(email, mdp)
-                .addOnCompleteListener(this) { task ->
-                    progressBar.visibility = View.GONE
-                    if (task.isSuccessful) {
-                        // Utilisateur créé avec succès
-                        val userId = auth.currentUser?.uid
-                        if (userId != null) {
-                            val databaseUrl = "https://carplace-76342-default-rtdb.europe-west1.firebasedatabase.app"
-                            val database = Firebase.database(databaseUrl).reference
-
-                            // Enregistrer les informations supplémentaires de l'utilisateur
-                            database.child("users").child(userId).child("nom").setValue(nom)
-                            database.child("users").child(userId).child("prenom").setValue(prenom)
-                            database.child("users").child(userId).child("dateNaissance").setValue(dateNaissance)
-
-                            Toast.makeText(this, "Compte créé avec succès", Toast.LENGTH_SHORT).show()
-                            val intent = Intent(applicationContext, LoginActivity::class.java)
-                            startActivity(intent)
-                            finish()
-                        }
-                    } else {
-                        // Échec de la création du compte
-                        Toast.makeText(this, "Échec de la création du compte", Toast.LENGTH_SHORT).show()
-                    }
-                }
-        }
-
-
-        //  Aller sur la page connexion
-        btnGoSignIn.setOnClickListener {
-            val intent = Intent(applicationContext, LoginActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
+//
+//        btnSignUp.setOnClickListener {
+//
+//            progressBar.visibility = View.VISIBLE
+//            val nom = inputName.text.toString()
+//            val prenom = inputFirstName.text.toString()
+//            val email = inputEmail.text.toString()
+//            val mdp = inputPwd.text.toString()
+//            val dateNaissance = inputDate.text.toString()
+//
+//            if (email.isEmpty() || mdp.isEmpty()) {
+//                Toast.makeText(baseContext, "Veuillez remplir les champs obligatoires", Toast.LENGTH_SHORT).show()
+//                progressBar.visibility = View.GONE
+//                return@setOnClickListener
+//            }
+//
+//            // Ajout d'un nouveau user dans Firebase Authentication
+//            auth.createUserWithEmailAndPassword(email, mdp)
+//                .addOnCompleteListener(this) { task ->
+//                    progressBar.visibility = View.GONE
+//                    if (task.isSuccessful) {
+//                        // Utilisateur créé avec succès
+//                        val userId = auth.currentUser?.uid
+//                        if (userId != null) {
+//                            val databaseUrl = "https://carplace-76342-default-rtdb.europe-west1.firebasedatabase.app"
+//                            val database = Firebase.database(databaseUrl).reference
+//
+//                            // Enregistrer les informations supplémentaires de l'utilisateur
+//                            database.child("users").child(userId).child("nom").setValue(nom)
+//                            database.child("users").child(userId).child("prenom").setValue(prenom)
+//                            database.child("users").child(userId).child("dateNaissance").setValue(dateNaissance)
+//
+//                            Toast.makeText(this, "Compte créé avec succès", Toast.LENGTH_SHORT).show()
+//                            val intent = Intent(applicationContext, LoginActivity::class.java)
+//                            startActivity(intent)
+//                            finish()
+//                        }
+//                    } else {
+//                        // Échec de la création du compte
+//                        Toast.makeText(this, "Échec de la création du compte", Toast.LENGTH_SHORT).show()
+//                    }
+//                }
+//        }
+//
+//
+//        //  Aller sur la page connexion
+//        btnGoSignIn.setOnClickListener {
+//            val intent = Intent(applicationContext, LoginActivity::class.java)
+//            startActivity(intent)
+//            finish()
+//        }
 
 
     }

@@ -35,7 +35,7 @@
         android:layout_height="48dp"
         android:layout_marginTop="90dp"
         android:backgroundTint="#E5E6F4"
-        android:text="@string/seConnecterBtn"
+        android:text="Se connecter"
         android:textColor="#122487"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"

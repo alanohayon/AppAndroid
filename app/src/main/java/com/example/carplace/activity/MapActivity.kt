@@ -150,24 +150,52 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback{
         binding.btnAddPlace.setOnClickListener {
            // recuperer laddrss
 
+
+
+
             getUserLocation { userLocation ->
                 val userLoca = LatLng(userLocation.latitude, userLocation.longitude)
                 getAddressFromLatLng(userLoca) { address ->
 
-                    // ajouter la place à la bdd
-                    val newPlaceRef = database.push()
-                    newPlaceRef.child("places").child("lat").setValue(userLocation.latitude)
-                    newPlaceRef.child("places").child("lng").setValue(userLocation.longitude)
-                    newPlaceRef.child("places").child("name").setValue(address)
-                    newPlaceRef.child("places").child("status").setValue("free")
-                    newPlaceRef.child("places").child("date").setValue("")
+
+                    database.child("places").addValueEventListener(object : ValueEventListener {
+                        override fun onDataChange(dataSnapshot: DataSnapshot) {
+                            if (dataSnapshot.exists()) {
+                                for (placeSnapshot in dataSnapshot.children) {
+                                    val name = placeSnapshot.child("name").getValue(String::class.java)
+                                    if (name == address){
+                                        Toast.makeText(this@MapActivity, "Cette place existe déjà", Toast.LENGTH_LONG).show()
+                                        return
+                                    }
+                                }
+                                for (placeSnapshot in dataSnapshot.children) {
+                                    val name = placeSnapshot.child("name").getValue(String::class.java)
+                                if (name != address) {
+                                        // ajouter la place à la bdd
+                                        val newPlaceRef = database.push()
+                                        newPlaceRef.child("places").child("lat").setValue(userLocation.latitude)
+                                        newPlaceRef.child("places").child("lng").setValue(userLocation.longitude)
+                                        newPlaceRef.child("places").child("name").setValue(address)
+                                        newPlaceRef.child("places").child("status").setValue("free")
+                                        newPlaceRef.child("places").child("date").setValue("")
 
 
 
-                    Toast.makeText(this, "Place ajoutée", Toast.LENGTH_SHORT).show()
+                                        Toast.makeText(this@MapActivity, "Place ajoutée", Toast.LENGTH_SHORT).show()
 
-                    val intent = Intent(this, MapActivity::class.java)
-                    startActivity(intent)
+                                        val intent = Intent(this@MapActivity, MapActivity::class.java)
+                                        startActivity(intent)
+                                    }
+                                }
+                            }
+                        }
+
+                        override fun onCancelled(error: DatabaseError) {
+                            TODO("Not yet implemented")
+                        }
+                    })
+
+
                 }
             }
         }

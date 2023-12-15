@@ -59,22 +59,13 @@
         android:id="@+id/btnGoSignIn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
+        android:layout_marginBottom="92dp"
         android:text="@string/seConnecterBtn"
-        app:layout_constraintEnd_toStartOf="@id/btnGoSignUp"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginEnd="8dp"/>
+        app:layout_constraintStart_toStartOf="parent" />
 
     <!-- Bouton Inscription -->
-    <Button
-        android:id="@+id/btnGoSignUp"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/sinscrireBtn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/btnGoSignIn"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginStart="8dp"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
